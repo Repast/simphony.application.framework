@@ -1,0 +1,7 @@
+<project name="plugin build file" default="jar" basedir=".">
+	
+  <target name="jar">
+  	<delete file="./saf.core.ui.jar" />
+   <jar destfile="./saf.core.ui.jar" basedir="./bin"/>
+  </target>
+</project>

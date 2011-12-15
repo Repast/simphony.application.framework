@@ -1,0 +1,7 @@
+<project name="plugin build file" default="jar" basedir=".">
+	
+  <target name="jar">
+  	<delete file="./saf.core.v3d.jar"/>
+   <jar destfile="./saf.core.v3d.jar" basedir="./bin"/>
+  </target>
+</project>

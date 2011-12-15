@@ -1,0 +1,18 @@
+<project name="plugin build file" default="jar" basedir=".">
+
+	<target name="compile">
+		<javac srcdir="./src" destdir="./bin">
+			<classpath>
+				<fileset dir="./lib">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+			
+	</target>
+
+	<target name="jar">
+		<delete file="./saf.core.runtime.jar" />
+		<jar destfile="./saf.core.runtime.jar" basedir="./bin" />
+	</target>
+</project>

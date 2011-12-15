@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 0.6"
+				"http://jpf.sourceforge.net/plugin_0_6.dtd">
+<plugin id="saf.v3d" version="">
+	<attributes>
+         <attribute id="simphony" value="2.0.0" />
+     </attributes>
+
+	<runtime>
+    	<library id="saf.v3f.bin" path="bin/" type="code">
+			<export prefix="*" />
+    </library>
+    	
+  </runtime>
+</plugin>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="plugin build file" default="jar" basedir=".">
+	<property name="runtime.plugin.home" value="runtime" />
+	<property name="ui.plugin.home" value="ui" />
+
+  <path id="top.lib.path">
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+  <target name="jar">
+    <jar destfile="${runtime.plugin.home}/saf.core.runtime.jar" basedir="${runtime.plugin.home}/bin"/>
+    <jar destfile="${ui.plugin.home}/saf.core.ui.jar" basedir="${ui.plugin.home}/bin"/>
+    <jar destfile="${ui.plugin.home}/lib/osx.jar">
+      <fileset dir="${ui.plugin.home}/bin">
+        <include name="**/osx/*.class" />
+      </fileset>
+    </jar>
+  </target>
+</project>

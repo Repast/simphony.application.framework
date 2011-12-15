@@ -1,0 +1,190 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plugin PUBLIC "-//JPF//Java Plug-in Manifest 0.4" "http://jpf.sourceforge.net/plugin_0_4.dtd">
+<plugin id="saf.demo.plugin" version="1.0" class="saf.demo.DemoAppPlugin">
+  <requires>
+    <import plugin-id="saf.core.runtime" />
+    <import plugin-id="saf.core.ui" />
+  </requires>
+  <runtime>
+    <library id="demo.bin" path="bin/" type="code">
+      <export prefix="*"/>
+
+    </library>
+    <library type="resources" path="icons/" id="icons"/>
+    <library type="resources" path="help/" id="help"/>
+  </runtime>
+
+  <extension plugin-id="saf.core.runtime" point-id="IApplicationRunnable" id="demo.runnable">
+    <parameter id="class" value="saf.demo.DemoAppPlugin"/>
+    <parameter id="name" value="Demo Application"/>
+    <parameter id="description" value="SAF Demonstration Application"/>
+  </extension>
+
+  <extension plugin-id="saf.core.ui" point-id="ui.Perspectives" id="demo.perspectives">
+
+    <parameter id="perspective">
+      <parameter id="perspectiveID" value="perspective.one"/>
+      <parameter id="name" value="Perspective One"/>
+      <parameter id="viewGroup">
+        <parameter id="groupID" value="A"/>
+      </parameter>
+
+      <parameter id="viewGroup">
+        <parameter id="groupID" value="C"/>
+        <parameter id="location" value="west"/>
+        <parameter id="parent" value="A"/>
+        <parameter id="fillPercentage" value=".35"/>
+      </parameter>
+
+      <parameter id="viewGroup">
+        <parameter id="groupID" value="B"/>
+        <parameter id="location" value="south"/>
+        <parameter id="parent" value="A"/>
+        <parameter id="fillPercentage" value=".3"/>
+      </parameter>
+    </parameter>
+
+
+    <parameter id="perspective">
+      <parameter id="perspectiveID" value="perspective.two"/>
+      <parameter id="name" value="Perspective Two"/>
+      <parameter id="viewGroup">
+        <parameter id="groupID" value="top"/>
+      </parameter>
+
+      <parameter id="viewGroup">
+        <parameter id="groupID" value="middle"/>
+        <parameter id="location" value="south"/>
+        <parameter id="parent" value="top"/>
+        <parameter id="fillPercentage" value=".5"/>
+      </parameter>
+
+      <parameter id="viewGroup">
+        <parameter id="groupID" value="bottom"/>
+        <parameter id="location" value="south"/>
+        <parameter id="parent" value="middle"/>
+        <parameter id="fillPercentage" value=".5"/>
+      </parameter>
+    </parameter>
+
+  </extension>
+
+  <extension plugin-id="saf.core.ui" point-id="ui.Menus" id="demo.menus">
+
+    <!-- defines the file menu -->
+    <parameter id="menuSpec">
+      <parameter id="menuID" value="file"/>
+      <parameter id="label" value="&amp;File"/>
+    </parameter>
+
+    <!-- defines a sub-menu of the file menu using parentID -->
+    <parameter id="menuSpec">
+      <parameter id="menuID" value="file.open"/>
+      <parameter id="label" value="Open"/>
+      <parameter id="parentID" value="file"/>
+    </parameter>
+
+    <!-- defines an edit menu -->
+    <parameter id="menuSpec">
+      <parameter id="menuID" value="edit"/>
+      <parameter id="label" value="Edit"/>
+    </parameter>
+
+
+    <parameter id="menuSpec">
+      <parameter id="menuID" value="window"/>
+      <parameter id="label" value="Window"/>
+    </parameter>
+
+  </extension>
+
+  <extension plugin-id="saf.core.ui" point-id="ui.Actions" id="demo.actions">
+
+    <parameter id="actionSpec">
+      <parameter id="actionID" value="open.dir"/>
+      <parameter id="label" value="Open Directory"/>
+      <parameter id="icon" value="download.png"/>
+      <parameter id="class" value="saf.demo.OpenDirectoryAction"/>
+      <parameter id="menuID" value="file.open"/>
+      <parameter id="groupID" value="file"/>
+      <parameter id="tooltip" value="Open a directory"/>
+    </parameter>
+
+    <parameter id="actionSpec">
+      <parameter id="actionID" value="open.file"/>
+      <parameter id="label" value="Open File"/>
+      <parameter id="icon" value="fileopen.png"/>
+      <parameter id="class" value="saf.demo.action.OpenFileAction"/>
+      <parameter id="menuID" value="file.open"/>
+      <parameter id="groupID" value="file"/>
+      <parameter id="tooltip" value="Open a file"/>
+    </parameter>
+
+
+    <parameter id="separator">
+      <parameter id="menuID" value="file"/>
+    </parameter>
+
+
+    <!-- adds the default exit action to the file menu -->
+    <parameter id="actionSpec">
+      <parameter id="actionID" value="saf.core.ui.actions.exit"/>
+      <parameter id="menuID" value="file"/>
+      <!-- we don't need to specify a class here because we are
+      using the default exit action id and SAF will find the class
+      for us
+      -->
+      <parameter id="class" value=""/>
+    </parameter>
+
+    <parameter id="actionSpec">
+      <parameter id="actionID" value="edit.item.2"/>
+      <parameter id="label" value="Edit Item 2"/>
+      <parameter id="command" value="Edit Item 2"/>
+      <parameter id="class" value="saf.demo.action.EditAction"/>
+      <parameter id="menuID" value="edit"/>
+    </parameter>
+
+    <parameter id="actionSpec">
+      <parameter id="actionID" value="edit.item.1"/>
+      <parameter id="label" value="Edit Item 1"/>
+      <parameter id="command" value="Edit Item 1"/>
+      <parameter id="class" value="saf.demo.action.EditAction"/>
+      <parameter id="menuID" value="edit"/>
+    </parameter>
+
+
+    <parameter id="actionSpec">
+      <parameter id="actionID" value="saf.demo.action.FloatAllAction"/>
+      <parameter id="class" value="saf.demo.action.FloatAllAction"/>
+      <parameter id="label" value="UnDock All"/>
+      <parameter id="groupID" value="tools"/>
+    </parameter>
+
+
+  </extension>
+
+
+  <!-- setups up the help -->
+  <extension plugin-id="saf.core.ui" point-id="ui.Help" id="helpsets">
+    <parameter id="helpSet" value="animals.hs"/>
+  </extension>
+
+
+  <extension plugin-id="saf.core.ui" point-id="ui.StatusBar" id="bar">
+    <parameter id="StatusField">
+      <parameter id="name" value="first"/>
+      <parameter id="fillPercentage" value=".5"/>
+    </parameter>
+
+    <parameter id="StatusField">
+      <parameter id="name" value="second"/>
+      <parameter id="fillPercentage" value=".25"/>
+    </parameter>
+
+    <parameter id="StatusField">
+      <parameter id="name" value="third"/>
+      <parameter id="fillPercentage" value=".25"/>
+    </parameter>
+  </extension>
+</plugin>

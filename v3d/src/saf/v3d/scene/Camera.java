@@ -56,11 +56,14 @@ public class Camera implements CanvasListener {
       lock.lock();
       root.markBoundsDirty();
       Point3f center = root.getBoundingSphere().getCenterRef();
-      this.pan.set(new Vector3f());
-      translate.x = width / 2f - center.x;
-      translate.y = height / 2f - center.y;
-      translate.z = 0;
-      scale = 1;
+      boolean isNaN = Float.isNaN(center.x) || Float.isNaN(center.y) || Float.isNaN(center.z);
+      if (!isNaN) {
+        this.pan.set(new Vector3f());
+        translate.x = width / 2f - center.x;
+        translate.y = height / 2f - center.y;
+        translate.z = 0;
+        scale = 1;
+      }
       root.markAsDirty();
     } finally {
       lock.unlock();

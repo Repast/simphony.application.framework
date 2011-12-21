@@ -30,7 +30,6 @@ import saf.v3d.event.MouseKeyZoom;
 import saf.v3d.event.MouseTranslate;
 import saf.v3d.event.MouseWheelSZoom;
 import saf.v3d.picking.BoundingSphere;
-import saf.v3d.picking.Box;
 import saf.v3d.picking.PickListener;
 import saf.v3d.picking.PickSupport2D;
 import saf.v3d.render.RenderState;
@@ -60,7 +59,7 @@ public class Canvas2D implements GLEventListener, Canvas {
   private PickSupport2D picker;
 
   private List<CanvasListener> listeners = new ArrayList<CanvasListener>();
-  private Box worldSizeAtZero;
+  //private Box worldSizeAtZero;
   private VRoot root;
   private boolean initialized = false;
   private Camera camera;
@@ -325,6 +324,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     keyZoomer.reset();
     camera.resetAndCenter();
 
+    
     float scale = 1;
     if (extentWidth > 0 && extentHeight > 0) {
       scale = calculateScaleFromExtents();
@@ -335,7 +335,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     wheelZoomer.reset(scale);
     keyZoomer.reset(scale);
     camera.scale(scale);
-    // System.out.printf("scale: %f%n", scale);
+   
     // camera.update();
   }
 

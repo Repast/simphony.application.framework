@@ -127,6 +127,7 @@ public class Label {
   public void setText(String text) {
     textChanged = !this.text.equals(text);
     this.text = text;
+    this.lines = this.text.split("\n");
   }
 
   public void setColor(Color color) {

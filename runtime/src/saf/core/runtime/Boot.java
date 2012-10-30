@@ -85,10 +85,6 @@ public class Boot {
       // props.put("applicationRoot", new File(".").getCanonicalPath());
       props.put("applicationRoot", RUNTIME_DIR_ROOT);
 
-      // Initializing logging system
-      PropertyConfigurator.configure(props);
-      center.info("logging system initialized");
-
       return initializePluginManager(findPluginLocations(props), props);
 
     } catch (Exception ex) {

@@ -3,14 +3,14 @@ package saf.v3d.util;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.gl2.GLUgl2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 import saf.v3d.math.Ray3f;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 /**
  * Takes screen coordinates and creates ray
@@ -28,14 +28,14 @@ public class RayCreator {
   
   private IntBuffer viewport;
   private DoubleBuffer mvMatrix, projMatrix, output;
-  private GLU glu;
+  private GLUgl2 glu;
   
   public RayCreator() {
-    viewport = BufferUtil.newIntBuffer(4);
-    mvMatrix = BufferUtil.newDoubleBuffer(16);
-    projMatrix = BufferUtil.newDoubleBuffer(16);
-    output = BufferUtil.newDoubleBuffer(3);
-    glu = new GLU();
+    viewport = Buffers.newDirectIntBuffer(4);
+    mvMatrix = Buffers.newDirectDoubleBuffer(16);
+    projMatrix = Buffers.newDirectDoubleBuffer(16);
+    output = Buffers.newDirectDoubleBuffer(3);
+    glu = new GLUgl2();
   }
   
   /**
@@ -46,9 +46,9 @@ public class RayCreator {
    * @param y
    * @return
    */
-  public Point3f createOrthoPoint(GL gl, int x, int y) {
-    gl.glGetIntegerv(GL.GL_VIEWPORT, viewport);
-    gl.glGetDoublev(GL.GL_PROJECTION_MATRIX, projMatrix);
+  public Point3f createOrthoPoint(GL2 gl, int x, int y) {
+    gl.glGetIntegerv(GL2.GL_VIEWPORT, viewport);
+    gl.glGetDoublev(GL2.GL_PROJECTION_MATRIX, projMatrix);
     
     mvMatrix.put(identity, 0, identity.length);
     mvMatrix.put(12, -viewport.get(2) / 2);
@@ -61,10 +61,10 @@ public class RayCreator {
     return new Point3f((float)output.get(0), (float)output.get(1), 0);
   }
   
-  public Ray3f createRay(GL gl, Point3f viewLocation, int x, int y) {
-    gl.glGetIntegerv(GL.GL_VIEWPORT, viewport);
-    gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX, mvMatrix);
-    gl.glGetDoublev(GL.GL_PROJECTION_MATRIX, projMatrix);
+  public Ray3f createRay(GL2 gl, Point3f viewLocation, int x, int y) {
+    gl.glGetIntegerv(GL2.GL_VIEWPORT, viewport);
+    gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, mvMatrix);
+    gl.glGetDoublev(GL2.GL_PROJECTION_MATRIX, projMatrix);
     
     // need opengl y where 0 is the top, 
     int ogY = viewport.get(3) - y - 1;

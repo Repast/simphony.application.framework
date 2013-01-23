@@ -3,7 +3,7 @@ package saf.v3d.scene;
 
 import java.util.Arrays;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Color4f;
 
 public class MaterialAppearance implements Appearance {
@@ -40,12 +40,12 @@ public class MaterialAppearance implements Appearance {
     System.arraycopy(color, 0, colors, 12, 4);
   }
   
-  public void applyAppearance(GL gl) {
-    gl.glMaterialfv(GL.GL_FRONT, GL.GL_AMBIENT, colors, 0);
-    gl.glMaterialfv(GL.GL_FRONT, GL.GL_DIFFUSE, colors, 4);
-    gl.glMaterialfv(GL.GL_FRONT, GL.GL_SPECULAR, colors, 8);
-    gl.glMaterialfv(GL.GL_FRONT, GL.GL_EMISSION, colors, 12);
+  public void applyAppearance(GL2 gl) {
+    gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_AMBIENT, colors, 0);
+    gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_DIFFUSE, colors, 4);
+    gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SPECULAR, colors, 8);
+    gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_EMISSION, colors, 12);
     
-    gl.glMaterialfv(GL.GL_FRONT, GL.GL_SHININESS, colors, 16);
+    gl.glMaterialfv(GL2.GL_FRONT, GL2.GL_SHININESS, colors, 16);
   }
 }

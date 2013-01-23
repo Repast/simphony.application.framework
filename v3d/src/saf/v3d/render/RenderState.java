@@ -1,6 +1,6 @@
 package saf.v3d.render;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Matrix4f;
 
 import saf.v3d.scene.Appearance;
@@ -20,7 +20,7 @@ public class RenderState {
   public BorderRenderer border;
   public int lineWidth = 1;
   
-  public int PolyMode = GL.GL_FILL;
+  public int PolyMode = GL2.GL_FILL;
   
   /**
    * Resets for the next iteration through the display loop.

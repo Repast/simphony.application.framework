@@ -10,13 +10,13 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 
 import saf.v3d.picking.BoundingSphere;
 
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureIO;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 /**
  * Encapsulates a 2D texture and the quad on which it is displayed.
@@ -60,11 +60,11 @@ public class Texture2D {
     sphere = new BoundingSphere(new Point3f(0, 0, 0), Math.max(img.getHeight() / 2f, img.getWidth() / 2f));
   }
   
-  public void bind(GL gl) {
+  public void bind(GL2 gl) {
     if (texture == null) {
       createTexture(gl);
     }
-    texture.bind();
+    texture.bind(gl);
   }
   
   /**
@@ -79,19 +79,19 @@ public class Texture2D {
   /**
    * Disposes of this texture.
    */
-  public void dispose() {
-    if (texture!= null) texture.dispose();
+  public void dispose(GL2 gl) {
+    if (texture!= null) texture.destroy(gl);
     texture = null;
   }
 
-  private void createTexture(GL gl) {
-    texture = TextureIO.newTexture(img, true);
+  private void createTexture(GL2 gl) {
+    texture = AWTTextureIO.newTexture(gl.getGLProfile(), img, true);
     float width = texture.getWidth() / 2f;
     float height = texture.getHeight() / 2f;
     
     listIndex = gl.glGenLists(1);
-    gl.glNewList(listIndex, GL.GL_COMPILE);
-    gl.glBegin(GL.GL_QUADS);
+    gl.glNewList(listIndex, GL2.GL_COMPILE);
+    gl.glBegin(GL2.GL_QUADS);
     
     gl.glTexCoord2f(0, 1);
     gl.glVertex2f(-width, -height);
@@ -120,7 +120,7 @@ public class Texture2D {
     return sphere;
   }
 
-  public void draw(GL gl, RenderState rState) {
+  public void draw(GL2 gl, RenderState rState) {
     gl.glCallList(listIndex);
   }
 }

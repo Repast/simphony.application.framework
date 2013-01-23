@@ -6,6 +6,7 @@ package saf.v3d.grid;
 import java.nio.FloatBuffer;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -14,7 +15,7 @@ import saf.v3d.picking.BoundingSphere;
 import saf.v3d.render.RenderState;
 import saf.v3d.render.Shape;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 /**
  * @author Nick Collier
@@ -40,7 +41,7 @@ public class GridMesh implements Shape {
     // duplicating the verts where the strips meet
     numVertInStrip = (major + 1) * 2;
     rowMajor = rows > cols;
-    colorBuf = BufferUtil.newFloatBuffer( numVertInStrip * minor * 3);
+    colorBuf = Buffers.newDirectFloatBuffer( numVertInStrip * minor * 3);
 
     Point3f center = new Point3f(cols * unitSize / 2f, rows * unitSize / 2f, 0);
     sphere = new BoundingSphere(center, center.distance(new Point3f(0, 0, 0)));
@@ -63,7 +64,7 @@ public class GridMesh implements Shape {
     int vertCount = numVertInStrip * minor;
 
     // calculate the vertices
-    FloatBuffer vertices = BufferUtil.newFloatBuffer(vertCount * 2);
+    FloatBuffer vertices = Buffers.newDirectFloatBuffer(vertCount * 2);
     if (rowMajor) {
       for (int i = 0; i < minor; i++) {
         float x = i * unitSize;
@@ -94,17 +95,17 @@ public class GridMesh implements Shape {
 
     verticesIndex = vboIndices[0];
     vertices.rewind();
-    gl.glBindBuffer(GL.GL_ARRAY_BUFFER, verticesIndex);
-    gl.glBufferData(GL.GL_ARRAY_BUFFER, vertCount * 2 * BufferUtil.SIZEOF_FLOAT, vertices,
-        GL.GL_STATIC_DRAW);
+    gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, verticesIndex);
+    gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertCount * 2 * Buffers.SIZEOF_FLOAT, vertices,
+        GL2.GL_STATIC_DRAW);
 
   
     updateColors();
     colorsIndex = vboIndices[1];
-    gl.glBindBuffer(GL.GL_ARRAY_BUFFER, colorsIndex);
+    gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, colorsIndex);
     colorBuf.rewind();
-    gl.glBufferData(GL.GL_ARRAY_BUFFER, colorBuf.limit() * BufferUtil.SIZEOF_FLOAT, colorBuf,
-        GL.GL_DYNAMIC_DRAW);
+    gl.glBufferData(GL2.GL_ARRAY_BUFFER, colorBuf.limit() * Buffers.SIZEOF_FLOAT, colorBuf,
+        GL2.GL_DYNAMIC_DRAW);
     
     invalid = false;
   }
@@ -226,37 +227,37 @@ public class GridMesh implements Shape {
    * saf.v3d.render.RenderState)
    */
   @Override
-  public void render(GL gl, RenderState state) {
+  public void render(GL2 gl, RenderState state) {
     if (invalid) {
 	initializeVBO(gl);
     }
-    gl.glShadeModel(GL.GL_FLAT);
-    //gl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL.GL_LINE );
-    gl.glBindBuffer(GL.GL_ARRAY_BUFFER, verticesIndex);
-    gl.glVertexPointer(2, GL.GL_FLOAT, 0, 0);
-    gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
+    gl.glShadeModel(GL2.GL_FLAT);
+    //gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE );
+    gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, verticesIndex);
+    gl.glVertexPointer(2, GL2.GL_FLOAT, 0, 0);
+    gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
     
-    gl.glBindBuffer(GL.GL_ARRAY_BUFFER, colorsIndex);
+    gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, colorsIndex);
     if (update) {
       colorBuf.rewind();
-      gl.glBufferSubData(GL.GL_ARRAY_BUFFER, 0, colorBuf.limit() * BufferUtil.SIZEOF_FLOAT, colorBuf);
+      gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, colorBuf.limit() * Buffers.SIZEOF_FLOAT, colorBuf);
       update = false;
     }
     
-    gl.glColorPointer(3, GL.GL_FLOAT, 0, 0);
-    gl.glEnableClientState(GL.GL_COLOR_ARRAY);
+    gl.glColorPointer(3, GL2.GL_FLOAT, 0, 0);
+    gl.glEnableClientState(GL2.GL_COLOR_ARRAY);
 
     // number of verts in a strip: (major + 1) * 2
     int major = Math.max(rows, cols);
     int minor = Math.min(rows, cols);
     int vertsInStrip = (major + 1) * 2;
     for (int i = 0; i < minor; i++) {
-      gl.glDrawArrays(GL.GL_TRIANGLE_STRIP, vertsInStrip * i, vertsInStrip);
+      gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, vertsInStrip * i, vertsInStrip);
     }
 
-    gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
-    gl.glDisableClientState(GL.GL_COLOR_ARRAY);
-    gl.glShadeModel(GL.GL_SMOOTH);
+    gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
+    gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
+    gl.glShadeModel(GL2.GL_SMOOTH);
     state.vboIndex = colorsIndex;
   }
   

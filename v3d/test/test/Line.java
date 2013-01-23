@@ -5,10 +5,11 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3f;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 public class Line {
 
@@ -16,8 +17,8 @@ public class Line {
   private Point3f target = new Point3f();
   private Color3f color = new Color3f();
   private int maxWidth, maxHeight;
-  private FloatBuffer data = BufferUtil.newFloatBuffer(4);
-  private IntBuffer indices = BufferUtil.newIntBuffer(2);
+  private FloatBuffer data = Buffers.newDirectFloatBuffer(4);
+  private IntBuffer indices = Buffers.newDirectIntBuffer(2);
   private float lineWidth = 1;
 
   public Line(int width, int height) {
@@ -49,15 +50,15 @@ public class Line {
     target.y = (float) (maxHeight * Math.random());
   }
 
-  public void draw(GL gl) {
+  public void draw(GL2 gl) {
     gl.glColor3f(color.x, color.y, color.z);
-    gl.glBegin(GL.GL_LINES);
+    gl.glBegin(GL2.GL_LINES);
     gl.glVertex2f(source.x, source.y);
     gl.glVertex2f(target.x, target.y);
     gl.glEnd();
   }
 
-  public void vboDraw(GL gl, ByteBuffer buf) {
+  public void vboDraw(GL2 gl, ByteBuffer buf) {
     // update the data
     //int offset = index * 10 * BufferUtil.SIZEOF_FLOAT;;
     //buf.position(offset);
@@ -76,7 +77,7 @@ public class Line {
     buf.putFloat(color.z);
   }
  
-  public void vboDraw(GL gl, int index) {
+  public void vboDraw(GL2 gl, int index) {
 
     // update the data
     data.rewind();
@@ -86,7 +87,7 @@ public class Line {
     data.put(target.y);
     data.rewind();
 
-    gl.glBufferSubData(GL.GL_ARRAY_BUFFER, index * BufferUtil.SIZEOF_FLOAT, index + 4 * BufferUtil.SIZEOF_FLOAT, data);
+    gl.glBufferSubData(GL.GL_ARRAY_BUFFER, index * Buffers.SIZEOF_FLOAT, index + 4 * Buffers.SIZEOF_FLOAT, data);
 
     // enable the appropriate state
     /*

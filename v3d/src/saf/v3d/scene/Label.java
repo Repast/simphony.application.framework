@@ -10,7 +10,7 @@ import javax.vecmath.Point3f;
 
 import saf.v3d.picking.BoundingSphere;
 
-import com.sun.opengl.util.j2d.TextRenderer;
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 /**
  * Encapsulates a text label.

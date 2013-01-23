@@ -3,7 +3,7 @@
  */
 package saf.v3d.scene;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -17,7 +17,7 @@ public class EmptyEdgeHead implements EdgeHead {
    * @see saf.ui.v3d.EdgeHead#draw(javax.media.opengl.GL, saf.ui.v3d.RenderState)
    */
   @Override
-  public final void draw(GL gl, Appearance appearance) {}
+  public final void draw(GL2 gl, Appearance appearance) {}
 
   
 

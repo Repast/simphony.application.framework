@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import saf.v3d.render.RenderState;
 import saf.v3d.render.Texture2D;
@@ -27,13 +27,13 @@ public class TextureLayerCollection implements Collection<VSpatial> {
   private Map<Texture2D, Set<VSpatial>> images = new HashMap<Texture2D, Set<VSpatial>>();
   private int size = 0;
   
-  public void invalidate() {
+  public void invalidate(GL2 gl) {
     for (Map.Entry<Texture2D, Set<VSpatial>> entry : images.entrySet()) {
-      entry.getKey().dispose();
+      entry.getKey().dispose(gl);
     }
   }
   
-  public void draw(GL gl, RenderState state) {
+  public void draw(GL2 gl, RenderState state) {
     for (Map.Entry<Texture2D, Set<VSpatial>> entry : images.entrySet()) {
       entry.getKey().bind(gl);
       Set<VSpatial> set = entry.getValue();

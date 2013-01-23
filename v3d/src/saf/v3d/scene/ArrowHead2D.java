@@ -1,6 +1,7 @@
 package saf.v3d.scene;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -70,7 +71,7 @@ public class ArrowHead2D implements EdgeHead {
    * Draws the arrow head.
    */
   @Override
-  public void draw(GL gl, Appearance appearance) {
+  public void draw(GL2 gl, Appearance appearance) {
     appearance.applyAppearance(gl);
     gl.glBegin(GL.GL_TRIANGLES);
     gl.glVertex2f(topX, topY);

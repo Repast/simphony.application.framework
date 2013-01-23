@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLException;
+import javax.media.opengl.GLProfile;
+import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JPanel;
 import javax.vecmath.Color4f;
 import javax.vecmath.Point3f;
@@ -37,7 +38,7 @@ import saf.v3d.scene.Camera;
 import saf.v3d.scene.VRoot;
 import saf.v3d.scene.VSpatial;
 
-import com.sun.opengl.util.Screenshot;
+import com.jogamp.opengl.util.awt.Screenshot;
 
 /**
  * JOGL canvas set up for 2D drawing.
@@ -59,7 +60,7 @@ public class Canvas2D implements GLEventListener, Canvas {
   private PickSupport2D picker;
 
   private List<CanvasListener> listeners = new ArrayList<CanvasListener>();
-  //private Box worldSizeAtZero;
+  // private Box worldSizeAtZero;
   private VRoot root;
   private boolean initialized = false;
   private Camera camera;
@@ -73,7 +74,8 @@ public class Canvas2D implements GLEventListener, Canvas {
   private float extentWidth, extentHeight;
 
   public Canvas2D() {
-    GLCapabilities caps = new GLCapabilities();
+    GLProfile gp = GLProfile.get(GLProfile.GL2);
+    GLCapabilities caps = new GLCapabilities(gp);
     caps.setSampleBuffers(true);
     caps.setNumSamples(4);
     drawable = new GLCanvas(caps);
@@ -111,7 +113,7 @@ public class Canvas2D implements GLEventListener, Canvas {
    */
   public BufferedImage createImage() {
     try {
-      drawable.getContext().makeCurrent();
+      if (!drawable.getContext().isCurrent()) drawable.getContext().makeCurrent();
       return Screenshot.readToBufferedImage(width, height, true);
     } catch (GLException ex) {
       ex.printStackTrace();
@@ -190,27 +192,28 @@ public class Canvas2D implements GLEventListener, Canvas {
 
     // System.err.println("Chosen GLCapabilities: " +
     // drawable.getChosenGLCapabilities());
-    GL gl = drawable.getGL();
+    GL2 gl = drawable.getGL().getGL2();
     // turn off vsyncs
     gl.setSwapInterval(0);
     gl.glClearColor(background.x, background.y, background.z, background.w);
-    gl.glShadeModel(GL.GL_SMOOTH);
+    gl.glShadeModel(GL2.GL_SMOOTH);
 
-    gl.glTexEnvf(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
+    gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_REPLACE);
 
     shapeFactory.invalidateRenderers(gl);
-    root.invalidate();
+    root.invalidate(gl);
     for (CanvasListener listener : listeners) {
       listener.init(drawable, root);
     }
 
     if (!initialized) {
-      drawable.addMouseListener(translator);
-      drawable.addMouseMotionListener(translator);
-      drawable.addMouseWheelListener(wheelZoomer);
-      drawable.addMouseMotionListener(keyZoomer);
-      drawable.addMouseListener(keyZoomer);
-      drawable.addMouseListener(picker);
+      GLCanvas canvas = ((GLCanvas)drawable);
+      canvas.addMouseListener(translator);
+      canvas.addMouseMotionListener(translator);
+      canvas.addMouseWheelListener(wheelZoomer);
+      canvas.addMouseMotionListener(keyZoomer);
+      canvas.addMouseListener(keyZoomer);
+      canvas.addMouseListener(picker);
     }
 
     initialized = true;
@@ -218,7 +221,18 @@ public class Canvas2D implements GLEventListener, Canvas {
 
   public void dispose() {
     for (CanvasListener listener : listeners) {
-      drawable.getContext().makeCurrent();
+      if (!drawable.getContext().isCurrent()) drawable.getContext().makeCurrent();
+      listener.dispose(drawable);
+    }
+  }
+  
+
+  /* (non-Javadoc)
+   * @see javax.media.opengl.GLEventListener#dispose(javax.media.opengl.GLAutoDrawable)
+   */
+  @Override
+  public void dispose(GLAutoDrawable drawable) {
+    for (CanvasListener listener : listeners) {
       listener.dispose(drawable);
     }
   }
@@ -230,12 +244,12 @@ public class Canvas2D implements GLEventListener, Canvas {
       rState.reset();
       rState.width = drawable.getWidth();
       rState.height = drawable.getHeight();
-      GL gl = drawable.getGL();
+      GL2 gl = drawable.getGL().getGL2();
       gl.glClear(GL_COLOR_BUFFER_BIT);
 
       camera.updateProjection(gl);
 
-      gl.glMatrixMode(GL.GL_MODELVIEW);
+      gl.glMatrixMode(GL2.GL_MODELVIEW);
       gl.glPushMatrix();
       gl.glLoadIdentity();
       // for exact pixelization
@@ -256,9 +270,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     }
   }
 
-  @Override
-  public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
-  }
+  
 
   /**
    * Gets a Box representing the dimensions of the viewable world when z is 0.
@@ -301,13 +313,13 @@ public class Canvas2D implements GLEventListener, Canvas {
 
     if (extentWidth > width || extentHeight > height) {
       if (extentWidth > width) {
-        scale = extentWidth / width;
+	scale = extentWidth / width;
       }
 
       if (extentHeight > height) {
-        scale = Math.max(scale, extentHeight / height);
+	scale = Math.max(scale, extentHeight / height);
       }
-      
+
       // bit extra to create some borders
       scale += .1f;
     }
@@ -324,7 +336,6 @@ public class Canvas2D implements GLEventListener, Canvas {
     keyZoomer.reset();
     camera.resetAndCenter();
 
-    
     float scale = 1;
     if (extentWidth > 0 && extentHeight > 0) {
       scale = calculateScaleFromExtents();
@@ -335,26 +346,26 @@ public class Canvas2D implements GLEventListener, Canvas {
     wheelZoomer.reset(scale);
     keyZoomer.reset(scale);
     camera.scale(scale);
-   
+
     // camera.update();
   }
 
   @Override
   public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-    GL gl = drawable.getGL();
-    gl.glMatrixMode(GL.GL_PROJECTION);
+    GL2 gl = drawable.getGL().getGL2();
+    gl.glMatrixMode(GL2.GL_PROJECTION);
     gl.glLoadIdentity();
     gl.glOrtho(-width / 2f, width / 2f, -height / 2f, height / 2f, -1, 1);
-    gl.glMatrixMode(GL.GL_MODELVIEW);
+    gl.glMatrixMode(GL2.GL_MODELVIEW);
     gl.glPushMatrix();
     gl.glLoadIdentity();
 
     // Make sure depth testing and lighting are disabled for 2D rendering
-    gl.glDisable(GL.GL_DEPTH_TEST);
-    gl.glDisable(GL.GL_LIGHTING);
+    gl.glDisable(GL2.GL_DEPTH_TEST);
+    gl.glDisable(GL2.GL_LIGHTING);
 
-    gl.glEnable(GL.GL_BLEND);
-    gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+    gl.glEnable(GL2.GL_BLEND);
+    gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
 
     // System.out.println("worldSizeAtZero = " + worldSizeAtZero);
 

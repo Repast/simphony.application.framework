@@ -5,7 +5,7 @@ package saf.v3d.scene;
 
 import java.nio.ByteBuffer;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -163,7 +163,7 @@ public class VEdge2D extends VGeometry {
    * saf.ui.v3d.RenderState)
    */
   @Override
-  protected void doDraw(GL gl, RenderState rState) {
+  protected void doDraw(GL2 gl, RenderState rState) {
     /*
      * gl.glBegin(GL.GL_LINES); gl.glVertex2f(sourcePt.x, sourcePt.y);
      * gl.glVertex2f(targetPt.x, targetPt.y); gl.glEnd();

@@ -12,15 +12,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLProfile;
+import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 public class OGLExp {
 
@@ -32,7 +34,8 @@ public class OGLExp {
   public OGLExp() {
     final JFrame frame = new JFrame();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    GLCapabilities caps = new GLCapabilities();
+    GLProfile gp = GLProfile.get(GLProfile.GL2);
+    GLCapabilities caps = new GLCapabilities(gp);
     caps.setSampleBuffers(true);
     caps.setNumSamples(4);
     canvas = new GLCanvas(caps);
@@ -97,7 +100,7 @@ public class OGLExp {
      */
     @Override
     public void display(GLAutoDrawable drawable) {
-      GL gl = drawable.getGL();
+      GL2 gl = drawable.getGL().getGL2();
       gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
       gl.glLoadIdentity();
@@ -147,10 +150,10 @@ public class OGLExp {
         // stride is the offset from the BEGINNING of one
         // vertex to the beginning of the next --
         // so its 2 (the vertex coords) + 3 (the color components)
-        gl.glVertexPointer(2, GL.GL_FLOAT, 5 * BufferUtil.SIZEOF_FLOAT, 0);
-        gl.glColorPointer(3, GL.GL_FLOAT, 5 * BufferUtil.SIZEOF_FLOAT, 2 * BufferUtil.SIZEOF_FLOAT);
-        gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
-        gl.glEnableClientState(GL.GL_COLOR_ARRAY);
+        gl.glVertexPointer(2, GL.GL_FLOAT, 5 * Buffers.SIZEOF_FLOAT, 0);
+        gl.glColorPointer(3, GL.GL_FLOAT, 5 * Buffers.SIZEOF_FLOAT, 2 * Buffers.SIZEOF_FLOAT);
+        gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
+        gl.glEnableClientState(GL2.GL_COLOR_ARRAY);
         
         int start = 0;
         for (Map.Entry<Float, List<Line>> vals : map.entrySet()) {
@@ -160,23 +163,23 @@ public class OGLExp {
           start = end;
         }
         
-        gl.glDisableClientState(GL.GL_COLOR_ARRAY);
-        gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
+        gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
+        gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
       }
 
       drawable.swapBuffers();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @seejavax.media.opengl.GLEventListener#displayChanged(javax.media.opengl.
-     * GLAutoDrawable, boolean, boolean)
+   
+    
+    /* (non-Javadoc)
+     * @see javax.media.opengl.GLEventListener#dispose(javax.media.opengl.GLAutoDrawable)
      */
     @Override
-    public void displayChanged(GLAutoDrawable arg0, boolean arg1, boolean arg2) {
+    public void dispose(GLAutoDrawable arg0) {
     }
+
 
     /*
      * (non-Javadoc)
@@ -188,7 +191,7 @@ public class OGLExp {
     @Override
     public void init(GLAutoDrawable drawable) {
       System.out.println("init");
-      GL gl = drawable.getGL();
+      GL2 gl = drawable.getGL().getGL2();
       // turn off vsyncs
       gl.setSwapInterval(0);
       gl.glClearColor(1, 1, 1, 0);
@@ -200,8 +203,8 @@ public class OGLExp {
       gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vboIndex);
       // buffer big enough for all the lines and color values
       // each line has 4 floats for vertices and 6 floats for color
-      gl.glBufferData(GL.GL_ARRAY_BUFFER, LINE_COUNT * 10 * BufferUtil.SIZEOF_FLOAT, null,
-          GL.GL_STREAM_DRAW);
+      gl.glBufferData(GL.GL_ARRAY_BUFFER, LINE_COUNT * 10 * Buffers.SIZEOF_FLOAT, null,
+          GL2.GL_STREAM_DRAW);
     }
 
     /*
@@ -214,11 +217,11 @@ public class OGLExp {
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
       System.out.println("reshape");
-      GL gl = drawable.getGL();
-      gl.glMatrixMode(GL.GL_PROJECTION);
+      GL2 gl = drawable.getGL().getGL2();
+      gl.glMatrixMode(GL2.GL_PROJECTION);
       gl.glLoadIdentity();
       gl.glOrtho(0, width, 0, height, -1, 1);
-      gl.glMatrixMode(GL.GL_MODELVIEW);
+      gl.glMatrixMode(GL2.GL_MODELVIEW);
       gl.glPushMatrix();
       gl.glLoadIdentity();
       // for exact pixelization
@@ -227,8 +230,8 @@ public class OGLExp {
       gl.glTranslatef(0.375f, 0.375f, 0);
 
       // Make sure depth testing and lighting are disabled for 2D rendering
-      gl.glDisable(GL.GL_DEPTH_TEST);
-      gl.glDisable(GL.GL_LIGHTING);
+      gl.glDisable(GL2.GL_DEPTH_TEST);
+      gl.glDisable(GL2.GL_LIGHTING);
 
     }
 

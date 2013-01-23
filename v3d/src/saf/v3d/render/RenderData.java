@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 /**
  * Encapsulates a single set of vertices and the modes used to render slices of
@@ -54,7 +54,7 @@ public class RenderData {
    * 
    * @param gl
    */
-  public void renderImmediate(GL gl) {
+  public void renderImmediate(GL2 gl) {
     vertices.rewind();
     sortSlices();
 
@@ -77,8 +77,8 @@ public class RenderData {
    * 
    * @param gl
    */
-  public void renderVBO(GL gl) {
-    gl.glVertexPointer(3, GL.GL_FLOAT, 0, 0);
+  public void renderVBO(GL2 gl) {
+    gl.glVertexPointer(3, GL2.GL_FLOAT, 0, 0);
     for (int i = 0, n = slices.size(); i < n; i++) {
       Slice slice = slices.get(i);
       int startIndex = slice.start;
@@ -124,15 +124,15 @@ public class RenderData {
       float[] buf = new float[endIndex - startIndex];
       vertices.position(startIndex);
       vertices.get(buf, 0, buf.length);
-      if (mode == GL.GL_TRIANGLE_STRIP) {
+      if (mode == GL2.GL_TRIANGLE_STRIP) {
         iterators.add(new TriangleStripIterator(FloatBuffer.wrap(buf)));
-      } else if (mode == GL.GL_TRIANGLE_FAN) {
+      } else if (mode == GL2.GL_TRIANGLE_FAN) {
         iterators.add(new TriangleFanIterator(FloatBuffer.wrap(buf)));
-      } else if (mode == GL.GL_TRIANGLES) {
+      } else if (mode == GL2.GL_TRIANGLES) {
         iterators.add(new TriangleTriangleIterator(FloatBuffer.wrap(buf)));
-      } else if (mode == GL.GL_QUADS) {
+      } else if (mode == GL2.GL_QUADS) {
         iterators.add(new TriangleQIterator(FloatBuffer.wrap(buf)));
-      } else if (mode == GL.GL_QUAD_STRIP) {
+      } else if (mode == GL2.GL_QUAD_STRIP) {
         iterators.add(new TriangleQSIterator(FloatBuffer.wrap(buf)));
       } else {
         throw new IllegalArgumentException("Unable to create triangle iterator for mode");

@@ -4,6 +4,7 @@
 package saf.v3d;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -31,9 +32,9 @@ public class BoxShape2D implements Shape {
     sphere = new BoundingSphere(new Point3f(width / 2, height / 2, 0), radius);
   }
   
-  private void initDL(GL gl) {
+  private void initDL(GL2 gl) {
     listIndex = gl.glGenLists(1);
-    gl.glNewList(listIndex, GL.GL_COMPILE);
+    gl.glNewList(listIndex, GL2.GL_COMPILE);
    
     gl.glBegin(GL.GL_LINE_LOOP);
     gl.glVertex3f(0, 0, 0);
@@ -75,7 +76,7 @@ public class BoxShape2D implements Shape {
    * @see saf.v3d.render.Shape#render(javax.media.opengl.GL, saf.v3d.render.RenderState)
    */
   @Override
-  public void render(GL gl, RenderState state) {
+  public void render(GL2 gl, RenderState state) {
     if (invalid) initDL(gl);
     state.appearance.applyAppearance(gl);
     gl.glLineWidth(1);

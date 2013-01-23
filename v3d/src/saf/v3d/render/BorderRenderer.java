@@ -3,7 +3,7 @@
  */
 package saf.v3d.render;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import saf.v3d.scene.ColorAppearance;
 
@@ -49,6 +49,6 @@ public interface BorderRenderer {
    * @param gl
    * @param listIndex the display list index 
    */
-  void drawBorder(GL gl, int listIndex, RenderState rState);
+  void drawBorder(GL2 gl, int listIndex, RenderState rState);
 
 }

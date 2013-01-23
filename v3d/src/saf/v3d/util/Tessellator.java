@@ -19,7 +19,7 @@ import saf.v3d.render.DisplayListRenderer;
 import saf.v3d.render.PolygonRenderer;
 import saf.v3d.render.RenderData;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 /**
  * Adapts the output of GLU tesselation to a VSpatial.
@@ -29,7 +29,6 @@ import com.sun.opengl.util.BufferUtil;
 public class Tessellator {
 
   private GLUtessellator tess;
-  private GLU glu;
 
   private static class Contour {
 
@@ -39,14 +38,14 @@ public class Tessellator {
       coords.add(new Point3d(x, y, z));
     }
 
-    void addContour(GLU glu, GLUtessellator tessellator) {
-      glu.gluTessBeginContour(tessellator);
+    void addContour(GLUtessellator tessellator) {
+      GLU.gluTessBeginContour(tessellator);
       for (Point3d pt : coords) {
         double[] vals = new double[3];
         pt.get(vals);
-        glu.gluTessVertex(tessellator, vals, 0, vals);
+        GLU.gluTessVertex(tessellator, vals, 0, vals);
       }
-      glu.gluTessEndContour(tessellator);
+      GLU.gluTessEndContour(tessellator);
     }
   }
   
@@ -129,19 +128,18 @@ public class Tessellator {
     }
   }
 
-  public Tessellator(GLU glu) {
-    this.glu = glu;
-    tess = glu.gluNewTess();
+  public Tessellator() {
+    tess = GLU.gluNewTess();
   }
 
   public PolygonRenderer createRenderer(Path2D.Float path) {
     int windingRule = getGLUWindingRule(path.getWindingRule());
-    glu.gluTessProperty(tess, GLU.GLU_TESS_WINDING_RULE, windingRule);
+    GLU.gluTessProperty(tess, GLU.GLU_TESS_WINDING_RULE, windingRule);
     Callback callback = new Callback();
-    glu.gluTessCallback(tess, GLU.GLU_TESS_BEGIN, callback);
-    glu.gluTessCallback(tess, GLU.GLU_TESS_VERTEX, callback);
-    glu.gluTessCallback(tess, GLU.GLU_TESS_ERROR, callback);
-    glu.gluTessCallback(tess, GLU.GLU_TESS_COMBINE, callback);
+    GLU.gluTessCallback(tess, GLU.GLU_TESS_BEGIN, callback);
+    GLU.gluTessCallback(tess, GLU.GLU_TESS_VERTEX, callback);
+    GLU.gluTessCallback(tess, GLU.GLU_TESS_ERROR, callback);
+    GLU.gluTessCallback(tess, GLU.GLU_TESS_COMBINE, callback);
 
     List<Contour> contours = new ArrayList<Contour>();
     Contour contour = new Contour();
@@ -174,18 +172,18 @@ public class Tessellator {
       throw new IllegalArgumentException("Invalid path: path is not closed");
     }
 
-    glu.gluTessBeginPolygon(tess, null);
+    GLU.gluTessBeginPolygon(tess, null);
     for (Contour cont : contours) {
-      cont.addContour(glu, tess);
+      cont.addContour(tess);
     }
-    glu.gluTessEndPolygon(tess);
+    GLU.gluTessEndPolygon(tess);
 
     // todo use the callbacks to grab the tesselated geometry
     if (callback.hasError()) {
       throw new IllegalArgumentException(callback.getError());
     }
     
-    FloatBuffer buf = BufferUtil.newFloatBuffer(callback.vertices.size());
+    FloatBuffer buf = Buffers.newDirectFloatBuffer(callback.vertices.size());
     for (Float f : callback.vertices) {
       buf.put(f.floatValue());
     }

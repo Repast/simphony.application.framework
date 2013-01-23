@@ -3,7 +3,7 @@
  */
 package saf.v3d.render;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 /**
  * Null no-op drawing border renderer.
@@ -16,7 +16,7 @@ public final class NullBorderRenderer extends AbstractBorderRenderer {
    * @see saf.v3d.render.BorderRenderer#drawBorder(javax.media.opengl.GL, int)
    */
   @Override
-  public void drawBorder(GL gl, int listIndex, RenderState rState) {}
+  public void drawBorder(GL2 gl, int listIndex, RenderState rState) {}
 
   /* (non-Javadoc)
    * @see saf.v3d.render.AbstractBorderRenderer#getStrokeSize()

@@ -6,6 +6,7 @@ package saf.v3d.render;
 import java.nio.FloatBuffer;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 
 import saf.v3d.util.Utils3D;
@@ -37,10 +38,10 @@ public class LineListRenderer implements Renderer {
   }
   
   // initialize the display list
-  private void init(GL gl) {
+  private void init(GL2 gl) {
     listIndex = gl.glGenLists(1);
     vertices.rewind();
-    gl.glNewList(listIndex, GL.GL_COMPILE);
+    gl.glNewList(listIndex, GL2.GL_COMPILE);
     for (int i = 0; i < moveTo.length; i++) {
       int startIndex = moveTo[i];
       int endIndex = i + 1 == moveTo.length ? vertices.limit()  : moveTo[i + 1];
@@ -79,7 +80,7 @@ public class LineListRenderer implements Renderer {
    * 
    * @param gl
    */
-  public void dispose(GL gl) {
+  public void dispose(GL2 gl) {
     if (listIndex != 0) {
       gl.glDeleteLists(listIndex, 1);
       invalid = true;
@@ -91,7 +92,7 @@ public class LineListRenderer implements Renderer {
    * 
    * @param gl
    */
-  public void render(GL gl, RenderState rState) {
+  public void render(GL2 gl, RenderState rState) {
     if (invalid) init(gl);
     gl.glLineWidth(rState.lineWidth);
     rState.appearance.applyAppearance(gl);

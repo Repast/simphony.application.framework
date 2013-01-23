@@ -3,7 +3,7 @@
  */
 package saf.v3d.render;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -22,7 +22,7 @@ public interface Shape {
    * 
    * @param gl
    */
-  void render(GL gl, RenderState rState);
+  void render(GL2 gl, RenderState rState);
   
   /**
    * Gets whether or not the specified ray intersects

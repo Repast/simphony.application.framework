@@ -9,8 +9,8 @@ import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
+import javax.media.opengl.GL2;
+import javax.media.opengl.glu.gl2.GLUgl2;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Quat4f;
@@ -21,7 +21,7 @@ import saf.v3d.picking.BoundingSphere;
 import saf.v3d.picking.Box;
 import saf.v3d.scene.VSpatial;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 /**
  * Static utililty methods for 3D.
@@ -339,17 +339,17 @@ public class Utils3D {
     return new BoundingSphere(center, radius);
   }
   
-  public static Box getWorldSizeAtZ(GL gl, float nearClipZ, float farClipZ, float z) {
+  public static Box getWorldSizeAtZ(GL2 gl, float nearClipZ, float farClipZ, float z) {
     
-    IntBuffer viewport = BufferUtil.newIntBuffer(4);
-    DoubleBuffer mvMatrix = BufferUtil.newDoubleBuffer(16);
-    DoubleBuffer projMatrix = BufferUtil.newDoubleBuffer(16);
-    DoubleBuffer output = BufferUtil.newDoubleBuffer(3);
-    GLU glu = new GLU();
+    IntBuffer viewport = Buffers.newDirectIntBuffer(4);
+    DoubleBuffer mvMatrix = Buffers.newDirectDoubleBuffer(16);
+    DoubleBuffer projMatrix = Buffers.newDirectDoubleBuffer(16);
+    DoubleBuffer output = Buffers.newDirectDoubleBuffer(3);
+    GLUgl2 glu = new GLUgl2();
     
-    gl.glGetIntegerv(GL.GL_VIEWPORT, viewport);
-    gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX, mvMatrix);
-    gl.glGetDoublev(GL.GL_PROJECTION_MATRIX, projMatrix);
+    gl.glGetIntegerv(GL2.GL_VIEWPORT, viewport);
+    gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, mvMatrix);
+    gl.glGetDoublev(GL2.GL_PROJECTION_MATRIX, projMatrix);
     
     //System.out.printf("cursor coords: %d, %d%n",x, ogY);
     glu.gluUnProject(0, 0, 0, mvMatrix, projMatrix, viewport, output);

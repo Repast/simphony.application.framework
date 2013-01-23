@@ -3,7 +3,7 @@
  */
 package saf.v3d.scene;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -28,7 +28,7 @@ public interface EdgeHead {
    * @param gl the gl used to draw
    * @param appearance the appearance to draw the head with
    */
-  void draw(GL gl, Appearance appearance);
+  void draw(GL2 gl, Appearance appearance);
   
   /**
    * Performs an intersection test on this EdgeHead with the specified point.

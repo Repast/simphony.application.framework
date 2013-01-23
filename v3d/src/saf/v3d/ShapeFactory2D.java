@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.glu.GLU;
 import javax.vecmath.Point3f;
 
 import saf.v3d.render.DisplayListRenderer;
@@ -34,7 +34,7 @@ import saf.v3d.scene.VSpatial;
 import saf.v3d.util.BezierCurveTessellator;
 import saf.v3d.util.Tessellator;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 /**
  * Factory for generation VNodes for particular shapes.
@@ -46,12 +46,11 @@ public class ShapeFactory2D implements CanvasListener {
   private Map<String, Texture2D> textureCache = new HashMap<String, Texture2D>();
   private Map<Object, Renderer> rendererCache = new HashMap<Object, Renderer>();
   private Map<String, ShapeCreator> namedShapes = new HashMap<String, ShapeCreator>();
-  private GLU glu = new GLU();
 
   private Tessellator tessellator;
 
   public ShapeFactory2D() {
-    tessellator = new Tessellator(glu);
+    tessellator = new Tessellator();
   }
   
   /**
@@ -59,7 +58,7 @@ public class ShapeFactory2D implements CanvasListener {
    * 
    * @param gl
    */
-  public void invalidateRenderers(GL gl) {
+  public void invalidateRenderers(GL2 gl) {
     for (Renderer renderer : rendererCache.values()) {
       renderer.dispose(gl);
     }
@@ -319,7 +318,7 @@ public class ShapeFactory2D implements CanvasListener {
       }
     }
 
-    FloatBuffer buf = BufferUtil.newFloatBuffer(vertices.size());
+    FloatBuffer buf = Buffers.newDirectFloatBuffer(vertices.size());
     for (Float val : vertices) {
       buf.put(val);
     }
@@ -401,13 +400,14 @@ public class ShapeFactory2D implements CanvasListener {
    */
   @Override
   public void dispose(GLAutoDrawable drawable) {
+    GL2 gl = drawable.getGL().getGL2();
     for (Texture2D texture : textureCache.values()) {
-      texture.dispose();
+      texture.dispose(gl);
     }
     textureCache.clear();
     
     for (Renderer renderer : rendererCache.values()) {
-      renderer.dispose(drawable.getGL());
+      renderer.dispose(gl);
     }
     rendererCache.clear();
 
@@ -416,7 +416,7 @@ public class ShapeFactory2D implements CanvasListener {
 
   private FloatBuffer createCircleGeom(float radius, int slices) {
     final int count = (slices + 2) * 3;
-    FloatBuffer buf = BufferUtil.newFloatBuffer(count);
+    FloatBuffer buf = Buffers.newDirectFloatBuffer(count);
     // first vertex at 0
     buf.put(0);
     buf.put(0);

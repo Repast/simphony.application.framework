@@ -6,6 +6,7 @@ package saf.v3d.render;
 import java.nio.FloatBuffer;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 
 /**
@@ -47,15 +48,15 @@ public class DisplayListRenderer implements PolygonRenderer {
    */
   // no-op here because all disposal is done through the DLRenderManager
   @Override
-  public void dispose(GL gl) {
+  public void dispose(GL2 gl) {
     if (listIndex != 0) gl.glDeleteLists(listIndex, 1);
     invalid = true;
     listIndex = 0;
   }
   
-  private void init(GL gl) {
+  private void init(GL2 gl) {
     listIndex = gl.glGenLists(1);
-    gl.glNewList(listIndex, GL.GL_COMPILE);
+    gl.glNewList(listIndex, GL2.GL_COMPILE);
     renderData.renderImmediate(gl);
     gl.glEndList();
   }
@@ -65,7 +66,7 @@ public class DisplayListRenderer implements PolygonRenderer {
    * 
    * @param gl
    */
-  public void render(GL gl, RenderState rState) {
+  public void render(GL2 gl, RenderState rState) {
     if (invalid) {
       //DLRenderManager dlManager = GLRegistry.getInstance().getDLRenderManager(rState.canvasId);
       //listIndex = dlManager.getDisplayList(gl, renderData);

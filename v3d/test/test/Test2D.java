@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -47,7 +47,7 @@ import saf.v3d.scene.VRoot;
 import saf.v3d.scene.VShape;
 import saf.v3d.scene.VSpatial;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 public class Test2D {
 
@@ -209,7 +209,7 @@ public class Test2D {
 
       20, 12, 0, 40, 12, 0, 40, 48, 0, 20, 48, 0 };
 
-      FloatBuffer buf = BufferUtil.newFloatBuffer(24);
+      FloatBuffer buf = Buffers.newDirectFloatBuffer(24);
       buf.put(data);
       return buf;
     }
@@ -219,7 +219,7 @@ public class Test2D {
 
       60, 12, 0, 58, 60, 0, };
 
-      FloatBuffer buf = BufferUtil.newFloatBuffer(18);
+      FloatBuffer buf = Buffers.newDirectFloatBuffer(18);
       buf.put(data);
       return buf;
     }
@@ -248,12 +248,12 @@ public class Test2D {
           layer.addChild(aGrid);
           aGrid.translate(0, 400, 0);
 
-          DisplayListRenderer renderer = new DisplayListRenderer(getQuads(), GL.GL_QUADS);
+          DisplayListRenderer renderer = new DisplayListRenderer(getQuads(), GL2.GL_QUADS);
           VSpatial quads = new VShape(new PolygonShape(renderer));
           layer.addChild(quads);
           quads.translate(600, 600, 0);
 
-          renderer = new DisplayListRenderer(getQuadStrip(), GL.GL_QUAD_STRIP);
+          renderer = new DisplayListRenderer(getQuadStrip(), GL2.GL_QUAD_STRIP);
           quads = new VShape(new PolygonShape(renderer));
           layer.addChild(quads);
           quads.translate(400, 400, 0);

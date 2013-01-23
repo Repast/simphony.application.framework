@@ -299,8 +299,8 @@ public class Test2D {
           compNode.scale(2);
           compNode.translate(200, 600, 0);
           compNode.putProperty("ID", "COMP_NODE");
-
           TextureLayer textureLayer = new TextureLayer();
+        
           String path = "./test/test/bookmark.png";
           VImage2D sprite = shapeFactory.createImage(path);
           sprite.putProperty("ID", "STAR 1");
@@ -315,15 +315,16 @@ public class Test2D {
           textureLayer.addChild(sprite2);
           layers.addLabel(new Label("Star 2", sprite2, position));
           
-          VImage2D lockImg = shapeFactory.createImage("./test/test/lock.png");
+          VImage2D lockImg = shapeFactory.createImage("./test/test/zombie.png");
           lockImg.putProperty("ID", "LOCK");
-          lockImg.translate(40, 30, 0);
+          lockImg.translate(10, 250, 0);
           textureLayer.addChild(lockImg);
           
           root.addChild(textureLayer);
           
           VEdgeLayer edgeLayer = new VEdgeLayer();
 
+        
           VEdge2D edge = new VEdge2D(sprite, sprite2, true);
           edge.putProperty("ID", "EDGE");
           edgeLayer.addChild(edge);
@@ -334,6 +335,7 @@ public class Test2D {
           edge = new VEdge2D(compNode, circle, true);
           edge.setAppearance(AppearanceFactory.createColorAppearance(Color.green));
           edgeLayer.addChild(edge);
+         
           
           layer.addChild(edgeLayer);
           root.addChild(layers);

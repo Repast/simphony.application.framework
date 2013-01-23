@@ -190,6 +190,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     // drawable.setGL(new TraceGL(drawable.getGL(), System.out));
     // }
 
+    //drawable.setGL(new TraceGL2(drawable.getGL().getGL2(), System.out));
     // System.err.println("Chosen GLCapabilities: " +
     // drawable.getChosenGLCapabilities());
     GL2 gl = drawable.getGL().getGL2();

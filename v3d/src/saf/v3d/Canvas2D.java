@@ -23,6 +23,7 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.awt.GLJPanel;
 import javax.swing.JPanel;
 import javax.vecmath.Color4f;
 import javax.vecmath.Point3f;
@@ -38,6 +39,8 @@ import saf.v3d.scene.Camera;
 import saf.v3d.scene.VRoot;
 import saf.v3d.scene.VSpatial;
 
+import com.jogamp.common.os.Platform;
+import com.jogamp.common.os.Platform.OSType;
 import com.jogamp.opengl.util.awt.Screenshot;
 
 /**
@@ -78,7 +81,11 @@ public class Canvas2D implements GLEventListener, Canvas {
     GLCapabilities caps = new GLCapabilities(gp);
     caps.setSampleBuffers(true);
     caps.setNumSamples(4);
-    drawable = new GLCanvas(caps);
+    if (Platform.getOSType().equals(OSType.MACOS)) {
+      drawable = new GLJPanel(caps);
+    } else {
+      drawable = new GLCanvas(caps);
+    }
     drawable.addGLEventListener(this);
     drawable.setAutoSwapBufferMode(false);
     camera = new Camera(this, drawable);
@@ -208,7 +215,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     }
 
     if (!initialized) {
-      GLCanvas canvas = ((GLCanvas)drawable);
+      Component canvas = ((Component)drawable);
       canvas.addMouseListener(translator);
       canvas.addMouseMotionListener(translator);
       canvas.addMouseWheelListener(wheelZoomer);

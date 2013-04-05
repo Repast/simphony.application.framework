@@ -229,7 +229,7 @@ public class Canvas2D implements GLEventListener, Canvas {
 
   public void dispose() {
     for (CanvasListener listener : listeners) {
-      if (!drawable.getContext().isCurrent()) drawable.getContext().makeCurrent();
+      if (drawable.getContext() != null && !drawable.getContext().isCurrent()) drawable.getContext().makeCurrent();
       listener.dispose(drawable);
     }
   }

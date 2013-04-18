@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 import saf.v3d.scene.Camera;
 
 /**
- * Adds zooming - adjust the 'world' scale via mouse move  up and down
- * in combination with mouse button down and the shift key.
+ * Adds zooming - adjust the 'world' scale via mouse move up and down in
+ * combination with mouse button down and the shift key.
  * 
  * @author Nick Collier
  */
@@ -20,13 +20,13 @@ public class MouseKeyZoom extends InputHandler {
   private boolean isEnabled = true;
   private int lastY = -1;
   private int buttonMask;
-  
+
   public MouseKeyZoom(Camera camera, int buttonMask) {
     this.camera = camera;
     zFactor = .005f;
     scale = 1;
     this.buttonMask = buttonMask;
-    
+
   }
 
   public float getScale() {
@@ -36,7 +36,7 @@ public class MouseKeyZoom extends InputHandler {
   public void reset() {
     scale = 1f;
   }
-  
+
   public void reset(float scale) {
     this.scale = scale;
   }
@@ -47,16 +47,24 @@ public class MouseKeyZoom extends InputHandler {
 
       int y = evt.getY();
       if (lastY != -1) {
-        float dy = y - lastY;
-        scale += dy * zFactor;
-        camera.scale(scale);
-        camera.update();
+
+	float dy = y - lastY;
+	float newScale = scale + dy * zFactor;
+	if (newScale >= 0) {
+	  scale = newScale;
+	  lastY = y;
+	  camera.scale(scale);
+	  camera.update();
+	}
+      } else {
+	lastY = y;
       }
-      lastY = y;
     }
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
    */
   @Override

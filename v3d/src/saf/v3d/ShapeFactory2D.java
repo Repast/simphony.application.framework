@@ -404,6 +404,17 @@ public class ShapeFactory2D implements CanvasListener {
 
     return renderer;
   }
+  
+  /**
+   * Disposes of the ShapeFactory. This is in contrast with
+   * dispose(GLAutoDrawable) which is called when the opengl
+   * canvas associated with the drawable has been disposed.
+   */
+  public void dispose() {
+    textureCache.clear();
+    rendererCache.clear();
+    namedShapes.clear();
+  }
 
   /*
    * (non-Javadoc)
@@ -427,7 +438,6 @@ public class ShapeFactory2D implements CanvasListener {
 
     textureCache.clear();
     rendererCache.clear();
-    namedShapes.clear();
   }
 
   private FloatBuffer createCircleGeom(float radius, int slices) {

@@ -128,6 +128,11 @@ public class Canvas2D implements GLEventListener, Canvas {
     return null;
   }
 
+  /**
+   * Gets the ShapeFactory associated with this Canvas2D
+   * 
+   * @return
+   */
   public ShapeFactory2D getShapeFactory() {
     return shapeFactory;
   }
@@ -232,6 +237,7 @@ public class Canvas2D implements GLEventListener, Canvas {
       if (drawable.getContext() != null && !drawable.getContext().isCurrent()) drawable.getContext().makeCurrent();
       listener.dispose(drawable);
     }
+    shapeFactory.dispose();
   }
   
 

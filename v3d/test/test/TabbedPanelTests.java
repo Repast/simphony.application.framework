@@ -3,14 +3,17 @@ package test;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Shape;
+import java.awt.Window;
 import java.awt.geom.Path2D;
 
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.vecmath.Point3f;
 
 import saf.v3d.AppearanceFactory;
@@ -102,7 +105,7 @@ public class TabbedPanelTests {
     JFrame frame = new JFrame();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLayout(new BorderLayout());
-    JTabbedPane tabs = new JTabbedPane();
+    final JTabbedPane tabs = new JTabbedPane();
     frame.add(tabs, BorderLayout.CENTER);
 
     Canvas2D canvas = new Canvas2D();
@@ -116,7 +119,19 @@ public class TabbedPanelTests {
     d2d2.showCircle = true;
     canvas2.addCanvasListener(d2d2);
     canvas2.addPickListener(d2d2);
+    
     tabs.add("Display 2", canvas2.getPanel());
+    
+    tabs.addChangeListener(new ChangeListener() {
+      @Override
+      public void stateChanged(ChangeEvent e) {
+	Component comp = tabs.getSelectedComponent();
+	//Window window = SwingUtilities.getWindowAncestor(comp);
+	//((GLCanvas)comp).getNativeSurface().surfaceSwap();
+        
+	
+      }
+    });
 
     frame.setSize(800, 800);
     frame.setVisible(true);

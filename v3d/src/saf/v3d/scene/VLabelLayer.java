@@ -27,17 +27,23 @@ public class VLabelLayer extends VSpatial {
   private TextRenderer txtRenderer;
   private boolean invalid = true;
   private Font font;
+  private boolean antialiased = true;
   
   private Set<Label> labels = new HashSet<Label>();
   
   public VLabelLayer(Font font) {
+    this(font, true);
+  }
+  
+  public VLabelLayer(Font font, boolean antialias) {
     boundingSphere = new BoundingSphere(new Point3f(0, 0, 0), 0);
     this.font = font;
+    this.antialiased = antialias;
   }
   
   private void init() {
     if (txtRenderer != null) txtRenderer.dispose();
-    txtRenderer = new TextRenderer(font, true, true);
+    txtRenderer = new TextRenderer(font, antialiased, true);
   }
 
 

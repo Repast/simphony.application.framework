@@ -188,7 +188,7 @@ public class Canvas2D implements GLEventListener, Canvas {
 
   public JPanel getPanel() {
     if (panel == null) {
-      panel = new JPanel(new BorderLayout());
+      panel = new JPanel(new BorderLayout(), false);
       // panel.add(getToolBar(), BorderLayout.NORTH);
       panel.add((Component) drawable, BorderLayout.CENTER);
       panel.setMinimumSize(new Dimension(10, 10));

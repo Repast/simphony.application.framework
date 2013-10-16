@@ -81,7 +81,8 @@ public class Canvas2D implements GLEventListener, Canvas {
     GLCapabilities caps = new GLCapabilities(gp);
     caps.setSampleBuffers(true);
     caps.setNumSamples(4);
-    if (Platform.getOSType().equals(OSType.MACOS)) {
+    if (Platform.getOSType().equals(OSType.MACOS) ||
+	Platform.getOSType().equals(OSType.LINUX)) {
       drawable = new GLJPanel(caps);
     } else {
       drawable = new GLCanvas(caps);
@@ -120,7 +121,8 @@ public class Canvas2D implements GLEventListener, Canvas {
    */
   public BufferedImage createImage() {
     try {
-      if (!drawable.getContext().isCurrent()) drawable.getContext().makeCurrent();
+      if (!drawable.getContext().isCurrent())
+	drawable.getContext().makeCurrent();
       return Screenshot.readToBufferedImage(width, height, true);
     } catch (GLException ex) {
       ex.printStackTrace();
@@ -202,7 +204,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     // drawable.setGL(new TraceGL(drawable.getGL(), System.out));
     // }
 
-    //drawable.setGL(new TraceGL2(drawable.getGL().getGL2(), System.out));
+    // drawable.setGL(new TraceGL2(drawable.getGL().getGL2(), System.out));
     // System.err.println("Chosen GLCapabilities: " +
     // drawable.getChosenGLCapabilities());
     GL2 gl = drawable.getGL().getGL2();
@@ -220,7 +222,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     }
 
     if (!initialized) {
-      Component canvas = ((Component)drawable);
+      Component canvas = ((Component) drawable);
       canvas.addMouseListener(translator);
       canvas.addMouseMotionListener(translator);
       canvas.addMouseWheelListener(wheelZoomer);
@@ -233,16 +235,22 @@ public class Canvas2D implements GLEventListener, Canvas {
   }
 
   public void dispose() {
+ 
     for (CanvasListener listener : listeners) {
-      if (drawable.getContext() != null && !drawable.getContext().isCurrent()) drawable.getContext().makeCurrent();
+      if (drawable.getContext() != null && !drawable.getContext().isCurrent())
+	drawable.getContext().makeCurrent();
       listener.dispose(drawable);
     }
+    
     shapeFactory.dispose();
   }
-  
 
-  /* (non-Javadoc)
-   * @see javax.media.opengl.GLEventListener#dispose(javax.media.opengl.GLAutoDrawable)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * javax.media.opengl.GLEventListener#dispose(javax.media.opengl.GLAutoDrawable
+   * )
    */
   @Override
   public void dispose(GLAutoDrawable drawable) {
@@ -283,8 +291,6 @@ public class Canvas2D implements GLEventListener, Canvas {
       lock.unlock();
     }
   }
-
-  
 
   /**
    * Gets a Box representing the dimensions of the viewable world when z is 0.

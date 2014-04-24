@@ -131,9 +131,10 @@ public class Texture2D {
 
   private void createTexture(GL2 gl) {
     texture = AWTTextureIO.newTexture(gl.getGLProfile(), img, true);
+    
     float width = texture.getWidth() / 2f;
     float height = texture.getHeight() / 2f;
-
+    
     listIndex = gl.glGenLists(1);
     gl.glNewList(listIndex, GL2.GL_COMPILE);
     gl.glBegin(GL2.GL_QUADS);
@@ -168,6 +169,7 @@ public class Texture2D {
   }
 
   public void draw(GL2 gl, RenderState rState) {
+    //System.out.println(texture.getTarget() == GL2.GL_TEXTURE_RECTANGLE_ARB);
     gl.glCallList(listIndex);
   }
 }

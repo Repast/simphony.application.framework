@@ -2,7 +2,7 @@ package saf.v3d.scene;
 
 import java.awt.Color;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 /**
  * Simple plain color appeareance.
@@ -43,7 +43,7 @@ public class ColorAppearance implements Appearance {
   }
 
   @Override
-  public void applyAppearance(GL gl) {
+  public void applyAppearance(GL2 gl) {
     gl.glColor4fv(color, 0);
   }
 }

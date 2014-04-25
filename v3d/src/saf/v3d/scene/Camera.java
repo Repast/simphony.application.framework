@@ -5,7 +5,7 @@ package saf.v3d.scene;
 
 import java.util.concurrent.locks.Lock;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Point3f;
@@ -135,8 +135,8 @@ public class Camera implements CanvasListener {
     drawable.display();
   }
 
-  public void updateProjection(GL gl) {
-    gl.glMatrixMode(GL.GL_PROJECTION);
+  public void updateProjection(GL2 gl) {
+    gl.glMatrixMode(GL2.GL_PROJECTION);
     gl.glLoadIdentity();
     gl.glOrtho(-width / 2 * scale, width / 2 * scale, -height / 2 * scale, height / 2 * scale, -1,
         1);
@@ -147,7 +147,7 @@ public class Camera implements CanvasListener {
    * 
    * @param gl
    */
-  public void applyViewTransforms(GL gl) {
+  public void applyViewTransforms(GL2 gl) {
     // pan, plus the translate back so 0, 0 is lower right corner
     gl.glTranslatef(translate.x - width / 2, translate.y - height / 2, 0);
   }

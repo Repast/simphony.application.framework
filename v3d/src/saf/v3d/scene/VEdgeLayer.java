@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import saf.v3d.render.RenderState;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 /**
  * Layer specialized for drawing and managing edges.  
@@ -39,9 +40,9 @@ public class VEdgeLayer extends VLayer {
     int[] indices = new int[1];
     gl.glGenBuffers(1, indices, 0);
     vboIndex = indices[0];
-    gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vboIndex);
-    int bufSize = capacity * FLOATS_PER_EDGE * BufferUtil.SIZEOF_FLOAT;
-    gl.glBufferData(GL.GL_ARRAY_BUFFER, bufSize, null, GL.GL_STREAM_DRAW);
+    gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboIndex);
+    int bufSize = capacity * FLOATS_PER_EDGE * Buffers.SIZEOF_FLOAT;
+    gl.glBufferData(GL2.GL_ARRAY_BUFFER, bufSize, null, GL2.GL_STREAM_DRAW);
     invalid = false;
   }
   
@@ -49,7 +50,7 @@ public class VEdgeLayer extends VLayer {
    * @see saf.v3d.scene.VSpatial#invalidate()
    */
   @Override
-  public void invalidate() {
+  public void invalidate(GL2 gl) {
     invalid = true;
   }
   
@@ -80,7 +81,7 @@ public class VEdgeLayer extends VLayer {
    * @see anl.mifs.viz3d.AbstractVNode#doDraw(javax.media.opengl.GL)
    */
   @Override
-  protected void doDraw(GL gl, RenderState rState) {
+  protected void doDraw(GL2 gl, RenderState rState) {
     /*
     for (VSpatial child : children) {
       //((VEdge2D)child).updateBuffer(buf);
@@ -113,8 +114,8 @@ public class VEdgeLayer extends VLayer {
         }
         map.put(1f, ones);
        
-        gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vboIndex);
-        ByteBuffer buf = gl.glMapBuffer(GL.GL_ARRAY_BUFFER, GL.GL_WRITE_ONLY);
+        gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboIndex);
+        ByteBuffer buf = gl.glMapBuffer(GL2.GL_ARRAY_BUFFER, GL2.GL_WRITE_ONLY);
         buf.position(0);
         
         //System.out.printf("children: %d%n", children.size());
@@ -125,28 +126,28 @@ public class VEdgeLayer extends VLayer {
           }
         }
         
-        gl.glUnmapBuffer(GL.GL_ARRAY_BUFFER);
+        gl.glUnmapBuffer(GL2.GL_ARRAY_BUFFER);
 
         // draw the buffer in one go // vertices are separated by a color,
         // stride is the offset from the BEGINNING of one
         // vertex to the beginning of the next --
         // so its 2 (the vertex coords) + 3 (the color components)
-        gl.glVertexPointer(2, GL.GL_FLOAT, 5 * BufferUtil.SIZEOF_FLOAT, 0);
-        gl.glColorPointer(3, GL.GL_FLOAT, 5 * BufferUtil.SIZEOF_FLOAT, 2 * BufferUtil.SIZEOF_FLOAT);
-        gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
-        gl.glEnableClientState(GL.GL_COLOR_ARRAY);
+        gl.glVertexPointer(2, GL2.GL_FLOAT, 5 * Buffers.SIZEOF_FLOAT, 0);
+        gl.glColorPointer(3, GL2.GL_FLOAT, 5 * Buffers.SIZEOF_FLOAT, 2 * Buffers.SIZEOF_FLOAT);
+        gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
+        gl.glEnableClientState(GL2.GL_COLOR_ARRAY);
         
         int start = 0;
         for (Map.Entry<Float, List<VEdge2D>> vals : map.entrySet()) {
           gl.glLineWidth(vals.getKey());
           int end =  vals.getValue().size() * 2;
-          gl.glDrawArrays(GL.GL_LINES, start, end);
+          gl.glDrawArrays(GL2.GL_LINES, start, end);
           start = end;
         }
         
-        gl.glDisableClientState(GL.GL_COLOR_ARRAY);
-        gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
-        gl.glBindBuffer(GL.GL_ARRAY_BUFFER, 0);
+        gl.glDisableClientState(GL2.GL_COLOR_ARRAY);
+        gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
+        gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
       }
     }
    

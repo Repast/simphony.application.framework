@@ -4,7 +4,7 @@
 package saf.v3d.picking;
 
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 
 import saf.v3d.Canvas2D;
@@ -21,7 +21,7 @@ public class PickSupport2D extends AbstractPickSupport {
     super(canvas);
   }
 
-  public void process(GL gl, VComposite root) {
+  public void process(GL2 gl, VComposite root) {
     if (mousePressed) {
       // need to set the mouse pressed to false prior t
       // firing the event as the consequences of

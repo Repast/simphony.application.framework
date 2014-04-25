@@ -6,7 +6,7 @@ package saf.v3d.scene;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Matrix4f;
@@ -169,13 +169,14 @@ public abstract class VSpatial {
    * 
    * @param gl
    */
-  protected abstract void doDraw(GL gl, RenderState state);
+  protected abstract void doDraw(GL2 gl, RenderState state);
 
   /**
    * Invalidates this VSpatial with respect to the specified canvas. The
    * semantics are subclass specific.
+   * @param gl 
    */
-  public void invalidate() {}
+  public void invalidate(GL2 gl) {}
 
   /**
    * Draws this Vspatial.
@@ -183,7 +184,7 @@ public abstract class VSpatial {
    * @param gl
    *          the GL used to draw.
    */
-  public void draw(GL gl, RenderState state) {
+  public void draw(GL2 gl, RenderState state) {
     if (visible) {
       gl.glPushMatrix();
       gl.glTranslatef(localTrans.x, localTrans.y, localTrans.z);

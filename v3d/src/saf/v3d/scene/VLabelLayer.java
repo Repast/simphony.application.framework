@@ -7,7 +7,7 @@ import java.awt.Font;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -15,7 +15,7 @@ import saf.v3d.picking.Accumulator;
 import saf.v3d.picking.BoundingSphere;
 import saf.v3d.render.RenderState;
 
-import com.sun.opengl.util.j2d.TextRenderer;
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 /**
  * Layer specialized for drawing labels.
@@ -27,17 +27,23 @@ public class VLabelLayer extends VSpatial {
   private TextRenderer txtRenderer;
   private boolean invalid = true;
   private Font font;
+  private boolean antialiased = true;
   
   private Set<Label> labels = new HashSet<Label>();
   
   public VLabelLayer(Font font) {
+    this(font, true);
+  }
+  
+  public VLabelLayer(Font font, boolean antialias) {
     boundingSphere = new BoundingSphere(new Point3f(0, 0, 0), 0);
     this.font = font;
+    this.antialiased = antialias;
   }
   
   private void init() {
     if (txtRenderer != null) txtRenderer.dispose();
-    txtRenderer = new TextRenderer(font, true, true);
+    txtRenderer = new TextRenderer(font, antialiased, true);
   }
 
 
@@ -47,7 +53,7 @@ public class VLabelLayer extends VSpatial {
    * @see saf.v3d.scene.VSpatial#invalidate()
    */
   @Override
-  public void invalidate() {
+  public void invalidate(GL2 gl) {
     if (txtRenderer != null)
       txtRenderer.dispose();
     txtRenderer = null;
@@ -78,7 +84,7 @@ public class VLabelLayer extends VSpatial {
    * @see anl.mifs.viz3d.AbstractVNode#doDraw(javax.media.opengl.GL)
    */
   @Override
-  protected void doDraw(GL gl, RenderState rState) {
+  protected void doDraw(GL2 gl, RenderState rState) {
     if (visible) {
       if (txtRenderer == null || invalid) {
         init();

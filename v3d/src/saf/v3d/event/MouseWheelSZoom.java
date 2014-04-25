@@ -48,10 +48,13 @@ public class MouseWheelSZoom implements MouseWheelListener {
       //y = evt.getY();
 
       int units = evt.getUnitsToScroll();
-      scale += units * zFactor;
+      float newScale = scale + units * zFactor;
       
-      camera.scale(scale);
-      camera.update();
+      if (newScale >= 0) {
+	scale = newScale;
+	camera.scale(scale);
+	camera.update();
+      }
     }
   }
 

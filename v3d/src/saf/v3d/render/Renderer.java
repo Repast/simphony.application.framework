@@ -5,7 +5,7 @@ package saf.v3d.render;
 
 import java.nio.FloatBuffer;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 /**
  * Interface for classes that can render using a GL
@@ -21,7 +21,7 @@ public interface Renderer {
    * @param gl
    * @param rState
    */
-  void render(GL gl, RenderState rState);
+  void render(GL2 gl, RenderState rState);
   
   /**
    * Gets the vertices to be rendered by this Renderer.
@@ -35,7 +35,7 @@ public interface Renderer {
    * 
    * @param gl
    */
-  void dispose(GL gl);
+  void dispose(GL2 gl);
   
   /**
    * Creates a shape that contains and uses this renderer.

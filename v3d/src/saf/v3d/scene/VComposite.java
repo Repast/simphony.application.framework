@@ -3,7 +3,7 @@ package saf.v3d.scene;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -29,9 +29,9 @@ public abstract class VComposite extends VSpatial {
    * @see saf.v3d.scene.VSpatial#invalidate()
    */
   @Override
-  public void invalidate() {
+  public void invalidate(GL2 gl) {
     for (VSpatial child : children) {
-      child.invalidate();
+      child.invalidate(gl);
     }
   }
   
@@ -126,7 +126,7 @@ public abstract class VComposite extends VSpatial {
    * @see anl.mifs.viz3d.AbstractVNode#doDraw(javax.media.opengl.GL)
    */
   @Override
-  protected void doDraw(GL gl, RenderState rState) {
+  protected void doDraw(GL2 gl, RenderState rState) {
     if (visible) {
       for (VSpatial child : children) {
         child.draw(gl, rState);

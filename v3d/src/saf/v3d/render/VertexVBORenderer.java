@@ -6,8 +6,9 @@ package saf.v3d.render;
 import java.nio.FloatBuffer;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 /**
  * Renders Vertex data via a vbo.
@@ -46,7 +47,7 @@ public class VertexVBORenderer implements PolygonRenderer {
     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vboIndex);
     FloatBuffer buf = renderData.getVertices();
     buf.rewind();
-    gl.glBufferData(GL.GL_ARRAY_BUFFER, buf.capacity() * 3 * BufferUtil.SIZEOF_FLOAT, buf, 
+    gl.glBufferData(GL.GL_ARRAY_BUFFER, buf.capacity() * 3 * Buffers.SIZEOF_FLOAT, buf, 
         GL.GL_STATIC_DRAW);
     invalid = false;
   }
@@ -66,7 +67,7 @@ public class VertexVBORenderer implements PolygonRenderer {
   /**
    * Deletes the vbo used by this VertexVBORenderer.
    */
-  public void dispose(GL gl) {
+  public void dispose(GL2 gl) {
     if (vboIndex != 0) {
       gl.glDeleteBuffers(1, new int[]{vboIndex}, 0);
       invalid = true;
@@ -79,15 +80,15 @@ public class VertexVBORenderer implements PolygonRenderer {
    * 
    * @param gl
    */
-  public void render(GL gl, RenderState rState) {
+  public void render(GL2 gl, RenderState rState) {
     if (invalid) initVBO(gl);
-    gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
+    gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
     if (rState.vboIndex != vboIndex) {
-      gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vboIndex);
+      gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboIndex);
       rState.vboIndex = vboIndex;
     } 
     renderData.renderVBO(gl);
-    gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
+    gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
   }
   
   

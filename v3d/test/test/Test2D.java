@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -47,7 +47,7 @@ import saf.v3d.scene.VRoot;
 import saf.v3d.scene.VShape;
 import saf.v3d.scene.VSpatial;
 
-import com.sun.opengl.util.BufferUtil;
+import com.jogamp.common.nio.Buffers;
 
 public class Test2D {
 
@@ -209,7 +209,7 @@ public class Test2D {
 
       20, 12, 0, 40, 12, 0, 40, 48, 0, 20, 48, 0 };
 
-      FloatBuffer buf = BufferUtil.newFloatBuffer(24);
+      FloatBuffer buf = Buffers.newDirectFloatBuffer(24);
       buf.put(data);
       return buf;
     }
@@ -219,7 +219,7 @@ public class Test2D {
 
       60, 12, 0, 58, 60, 0, };
 
-      FloatBuffer buf = BufferUtil.newFloatBuffer(18);
+      FloatBuffer buf = Buffers.newDirectFloatBuffer(18);
       buf.put(data);
       return buf;
     }
@@ -248,12 +248,12 @@ public class Test2D {
           layer.addChild(aGrid);
           aGrid.translate(0, 400, 0);
 
-          DisplayListRenderer renderer = new DisplayListRenderer(getQuads(), GL.GL_QUADS);
+          DisplayListRenderer renderer = new DisplayListRenderer(getQuads(), GL2.GL_QUADS);
           VSpatial quads = new VShape(new PolygonShape(renderer));
           layer.addChild(quads);
           quads.translate(600, 600, 0);
 
-          renderer = new DisplayListRenderer(getQuadStrip(), GL.GL_QUAD_STRIP);
+          renderer = new DisplayListRenderer(getQuadStrip(), GL2.GL_QUAD_STRIP);
           quads = new VShape(new PolygonShape(renderer));
           layer.addChild(quads);
           quads.translate(400, 400, 0);
@@ -299,8 +299,8 @@ public class Test2D {
           compNode.scale(2);
           compNode.translate(200, 600, 0);
           compNode.putProperty("ID", "COMP_NODE");
-
           TextureLayer textureLayer = new TextureLayer();
+        
           String path = "./test/test/bookmark.png";
           VImage2D sprite = shapeFactory.createImage(path);
           sprite.putProperty("ID", "STAR 1");
@@ -315,15 +315,16 @@ public class Test2D {
           textureLayer.addChild(sprite2);
           layers.addLabel(new Label("Star 2", sprite2, position));
           
-          VImage2D lockImg = shapeFactory.createImage("./test/test/lock.png");
+          VImage2D lockImg = shapeFactory.createImage("./test/test/zombie.png");
           lockImg.putProperty("ID", "LOCK");
-          lockImg.translate(40, 30, 0);
+          lockImg.translate(10, 250, 0);
           textureLayer.addChild(lockImg);
           
           root.addChild(textureLayer);
           
           VEdgeLayer edgeLayer = new VEdgeLayer();
 
+        
           VEdge2D edge = new VEdge2D(sprite, sprite2, true);
           edge.putProperty("ID", "EDGE");
           edgeLayer.addChild(edge);
@@ -334,6 +335,7 @@ public class Test2D {
           edge = new VEdge2D(compNode, circle, true);
           edge.setAppearance(AppearanceFactory.createColorAppearance(Color.green));
           edgeLayer.addChild(edge);
+         
           
           layer.addChild(edgeLayer);
           root.addChild(layers);

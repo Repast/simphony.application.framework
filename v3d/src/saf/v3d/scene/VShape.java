@@ -5,7 +5,7 @@ package saf.v3d.scene;
 
 import java.awt.Color;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -49,7 +49,7 @@ public class VShape extends VGeometry {
   }
 
   @Override
-  protected void doDraw(GL gl, RenderState state) {
+  protected void doDraw(GL2 gl, RenderState state) {
     state.border = border;
     shape.render(gl, state);
   }
@@ -107,7 +107,7 @@ public class VShape extends VGeometry {
    * 
    */
   @Override
-  public void invalidate() {
+  public void invalidate(GL2 gl) {
     shape.invalidate();
   }
 }

@@ -9,6 +9,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/runtime"/>
 	<classpathentry kind="lib" path="lib/AppleJavaExtensions.jar"/>
-	<classpathentry kind="lib" path="/saf.core.ui/lib/dockingFrames-1.0.8p3a-saf.jar"/>
+	<classpathentry kind="lib" path="lib/dockingFrames-1.0.8p3a-saf.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -6,7 +6,7 @@ package saf.v3d.event;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 
-import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Quat4f;
@@ -31,7 +31,7 @@ public class MouseRotate extends InputHandler {
     this.rotY = oy = rotY;
   }
   
-  public void process(GL gl) {
+  public void process(GL2 gl) {
     gl.glRotatef(-rotX, 1.0f, 0.0f, 0.0f);
     gl.glRotatef(rotY, 0.0f, 1.0f, 0.0f);
   }

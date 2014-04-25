@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Shape;
-import java.awt.Window;
 import java.awt.geom.Path2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
@@ -22,6 +24,7 @@ import saf.v3d.CanvasListener;
 import saf.v3d.ShapeFactory2D;
 import saf.v3d.picking.PickEvent;
 import saf.v3d.picking.PickListener;
+import saf.v3d.scene.TextureLayer;
 import saf.v3d.scene.VLayer;
 import saf.v3d.scene.VRoot;
 import saf.v3d.scene.VShape;
@@ -77,6 +80,20 @@ public class TabbedPanelTests {
 	  jShape.translate(100, 400, 0);
 	  jShape.setBorderStrokeSize(5);
 	  jShape.setBorderColor(Color.CYAN);
+
+	  try {
+	    TextureLayer texLayer = new TextureLayer();
+	    root.addChild(texLayer);
+	   
+	    BufferedImage img = ImageIO.read(new File("./test/test/zombie.png"));
+	    shapeFactory.registerImage("zombie", img);
+
+	    VSpatial zombie = shapeFactory.getNamedSpatial("zombie");
+	    texLayer.addChild(zombie);
+	    zombie.translate(10, 10, 0);
+	  } catch (IOException ex) {
+	    ex.printStackTrace();
+	  }
 	}
 	added = true;
       }
@@ -119,17 +136,16 @@ public class TabbedPanelTests {
     d2d2.showCircle = true;
     canvas2.addCanvasListener(d2d2);
     canvas2.addPickListener(d2d2);
-    
+
     tabs.add("Display 2", canvas2.getPanel());
-    
+
     tabs.addChangeListener(new ChangeListener() {
       @Override
       public void stateChanged(ChangeEvent e) {
 	Component comp = tabs.getSelectedComponent();
-	//Window window = SwingUtilities.getWindowAncestor(comp);
-	//((GLCanvas)comp).getNativeSurface().surfaceSwap();
-        
-	
+	// Window window = SwingUtilities.getWindowAncestor(comp);
+	// ((GLCanvas)comp).getNativeSurface().surfaceSwap();
+
       }
     });
 

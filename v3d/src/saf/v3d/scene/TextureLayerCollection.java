@@ -13,8 +13,6 @@ import java.util.Set;
 
 import javax.media.opengl.GL2;
 
-import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
-
 import saf.v3d.render.RenderState;
 import saf.v3d.render.Texture2D;
 
@@ -28,11 +26,7 @@ public class TextureLayerCollection implements Collection<VSpatial> {
 
   private Map<Texture2D, Set<VSpatial>> images = new HashMap<Texture2D, Set<VSpatial>>();
   private int size = 0;
-  
-  public TextureLayerCollection() {
-    AWTTextureIO.setTexRectEnabled(false);
-  }
-  
+ 
   public void invalidate(GL2 gl) {
     for (Map.Entry<Texture2D, Set<VSpatial>> entry : images.entrySet()) {
       entry.getKey().dispose(gl);

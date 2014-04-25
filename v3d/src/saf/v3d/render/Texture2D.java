@@ -17,6 +17,7 @@ import saf.v3d.picking.BoundingSphere;
 
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureCoords;
+import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 /**
@@ -25,6 +26,14 @@ import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
  * @author Nick Collier
  */
 public class Texture2D {
+  
+  private static final String TEXT_RECT_ENABLED_KEY = "saf.v3d.tex.rect.enabled";
+  
+  static {
+    String prop = System.getProperty(TEXT_RECT_ENABLED_KEY, "false");
+    boolean enabled = Boolean.parseBoolean(prop);
+    TextureIO.setTexRectEnabled(enabled);
+  }
 
   private BufferedImage img;
   private Texture texture;

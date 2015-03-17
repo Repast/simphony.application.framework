@@ -41,7 +41,8 @@ import saf.v3d.scene.VSpatial;
 
 import com.jogamp.common.os.Platform;
 import com.jogamp.common.os.Platform.OSType;
-import com.jogamp.opengl.util.awt.Screenshot;
+import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
+//import com.jogamp.opengl.util.awt.Screenshot;
 
 /**
  * JOGL canvas set up for 2D drawing.
@@ -123,7 +124,9 @@ public class Canvas2D implements GLEventListener, Canvas {
     try {
       if (!drawable.getContext().isCurrent())
 	drawable.getContext().makeCurrent();
-      return Screenshot.readToBufferedImage(width, height, true);
+      //return Screenshot.readToBufferedImage(width, height, true);
+      AWTGLReadBufferUtil util = new AWTGLReadBufferUtil(drawable.getGLProfile(), true);
+      return util.readPixelsToBufferedImage(drawable.getContext().getGL(), true);
     } catch (GLException ex) {
       ex.printStackTrace();
     }
@@ -264,8 +267,8 @@ public class Canvas2D implements GLEventListener, Canvas {
     try {
       lock.lock();
       rState.reset();
-      rState.width = drawable.getWidth();
-      rState.height = drawable.getHeight();
+      rState.width = drawable.getSurfaceWidth();
+      rState.height = drawable.getSurfaceHeight();
       GL2 gl = drawable.getGL().getGL2();
       gl.glClear(GL_COLOR_BUFFER_BIT);
 

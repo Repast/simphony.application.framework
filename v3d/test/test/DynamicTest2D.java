@@ -80,8 +80,8 @@ public class DynamicTest2D {
     List<VSpatial> spatials = new ArrayList<VSpatial>();
 
     public void run() {
-      int width = drawable.getWidth();
-      int height = drawable.getHeight();
+      int width = drawable.getSurfaceWidth();
+      int height = drawable.getSurfaceHeight();
       for (VSpatial spatial : spatials) {
         spatial.translate((float) (Math.random() * width), (float) (Math.random() * height), 0);
       }

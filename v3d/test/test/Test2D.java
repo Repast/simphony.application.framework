@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.swing.JButton;
@@ -94,6 +97,18 @@ public class Test2D {
       }
     });
 
+    buttonPanel.add(button);
+    
+    button = new JButton("Image");
+    button.addActionListener(e -> {
+      BufferedImage img = canvas.createImage();
+      try {
+	ImageIO.write(img, "png", new File("/Users/nick/Desktop/test.png"));
+      } catch (Exception e1) {
+	// TODO Auto-generated catch block
+	e1.printStackTrace();
+      }
+    });
     buttonPanel.add(button);
     frame.setSize(800, 800);
     frame.setVisible(true);

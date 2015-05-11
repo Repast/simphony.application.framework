@@ -47,16 +47,22 @@ public class RayCreator {
    * @return
    */
   public Point3f createOrthoPoint(GL2 gl, int x, int y) {
+    int height = gl.getContext().getGLDrawable().getSurfaceHeight();
+    int width = gl.getContext().getGLDrawable().getSurfaceWidth();
+   
     gl.glGetIntegerv(GL2.GL_VIEWPORT, viewport);
     gl.glGetDoublev(GL2.GL_PROJECTION_MATRIX, projMatrix);
     
     mvMatrix.put(identity, 0, identity.length);
-    mvMatrix.put(12, -viewport.get(2) / 2);
-    mvMatrix.put(13, -viewport.get(3) / 2);
+    mvMatrix.put(12, -width / 2);
+    mvMatrix.put(13, -height / 2);
     mvMatrix.rewind();
     
     // need opengl y where 0 is the top, 
-    int ogY = viewport.get(3) - y - 1;
+    int ogY = height - y - 1;
+    
+    viewport.put(2, width);
+    viewport.put(3, height);
     glu.gluUnProject(x, ogY, 0, mvMatrix, projMatrix, viewport, output);
     return new Point3f((float)output.get(0), (float)output.get(1), 0);
   }

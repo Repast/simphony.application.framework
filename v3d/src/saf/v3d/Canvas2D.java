@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.media.nativewindow.ScalableSurface;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
@@ -85,6 +86,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     if (Platform.getOSType().equals(OSType.MACOS) ||
 	Platform.getOSType().equals(OSType.LINUX)) {
       drawable = new GLJPanel(caps);
+      ((GLJPanel)drawable).setSurfaceScale(new int[]{ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE});
     } else {
       drawable = new GLCanvas(caps);
     }

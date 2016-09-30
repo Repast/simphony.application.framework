@@ -100,15 +100,15 @@ public class Test2D {
     buttonPanel.add(button);
     
     button = new JButton("Image");
-    button.addActionListener(e -> {
-      BufferedImage img = canvas.createImage();
-      try {
-	ImageIO.write(img, "png", new File("/Users/nick/Desktop/test.png"));
-      } catch (Exception e1) {
-	// TODO Auto-generated catch block
-	e1.printStackTrace();
-      }
-    });
+//    button.addActionListener(e -> {
+//      BufferedImage img = canvas.createImage();
+//      try {
+//	ImageIO.write(img, "png", new File("/Users/nick/Desktop/test.png"));
+//      } catch (Exception e1) {
+//	// TODO Auto-generated catch block
+//	e1.printStackTrace();
+//      }
+//    });
     buttonPanel.add(button);
     frame.setSize(800, 800);
     frame.setVisible(true);

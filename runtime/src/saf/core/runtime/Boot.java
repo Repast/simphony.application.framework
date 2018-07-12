@@ -114,6 +114,7 @@ public class Boot {
   private PluginManager initializePluginManager(Collection locations, Properties props)
       throws JpfException, IOException, ParserConfigurationException, SAXException {
 
+    props.put("org.java.plugin.PathResolver", "saf.core.runtime.SAFPathResolver");
     ObjectFactory fac = ObjectFactory.newInstance(new ExtendedProperties(props));
     PluginManager pluginManager = fac.createManager();
 

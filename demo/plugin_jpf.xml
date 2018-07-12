@@ -3,7 +3,7 @@
 <plugin id="saf.demo.plugin" version="1.0" class="saf.demo.DemoAppPlugin">
   <requires>
     <import plugin-id="saf.core.runtime" />
-    <import plugin-id="saf.core.ui" />
+    <import exported="false" match="compatible" optional="false" plugin-id="saf.core.ui" />
   </requires>
   <runtime>
     <library id="demo.bin" path="bin/" type="code">

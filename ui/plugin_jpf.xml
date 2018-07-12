@@ -7,16 +7,25 @@
     <import plugin-id="saf.core.runtime"/>
   </requires>
   <runtime>
+  
 
-    <library id="ui.jar" path="./saf.core.ui.jar" type="code">
-      <export prefix="*"/>
+    <library id="ui.jar" path="./bin/" type="code">
+        <export prefix="*"/>
     </library>
+ 
+
+
+<!--  
+    <library id="ui.jar" path="./saf.core.ui.jar" type="code">
+        <export prefix="*"/>
+    </library>
+-->
 
     <library id="osx.jar" path="lib/osx.jar" type="code">
       <export prefix="*"/>
     </library>
     
-    <library id="docking" path="../dockingFrames/bin/" type="code">
+    <library id="docking" path="lib/dockingFrames-1.0.8p3a-saf.jar" type="code">
       <export prefix="*"/>
     </library>
 

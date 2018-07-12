@@ -14,12 +14,11 @@ import com.apple.eawt.QuitResponse;
 /**
  * @author Nick Collier
  */
-public class OSXAdapter {
+public class MacOSAdapterJava1x implements MacOSAdapter {
 
   // The main entry-point for this functionality.  This is the only method
-  // that needs to be called at runtime, and it can easily be done using
-  // reflection (see MyApp.java)
-  public static void registerMacOSXApplication() {
+  // that needs to be called at runtime.
+  public void registerMacOSXApplication() {
     Application.getApplication().setQuitHandler(new QuitHandler() {
 
       @Override
@@ -31,7 +30,7 @@ public class OSXAdapter {
     //theApplication.addApplicationListener(theAdapter);
   }
   
-  public static void registerDockImage(Image img) {
+  public void registerDockImage(Image img) {
     //if (theApplication == null) {
     //  theApplication = new com.apple.eawt.Application();
     //}
@@ -39,9 +38,8 @@ public class OSXAdapter {
     if (img != null) Application.getApplication().setDockIconImage(img);
   }
 
-  // Another static entry point for EAWT functionality.  Enables the
-  // "Preferences..." menu item in the application menu.
-  public static void enablePrefs(boolean enabled) {
+  // Enables the "Preferences..." menu item in the application menu.
+  public void enablePrefs() {
     //if (theApplication == null) {
     //  theApplication = new com.apple.eawt.Application();
     //}

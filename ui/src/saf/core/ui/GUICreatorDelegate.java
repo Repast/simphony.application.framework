@@ -97,27 +97,6 @@ public class GUICreatorDelegate {
 	return Integer.parseInt(items[0]);
     }
 
-    private void registerMacOSXPreJava9()
-	    throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-	// we do this with reflection so the mac only code doesn't
-	// need to be linked here
-	Class osxAdapter = getClass().getClassLoader().loadClass("saf.core.ui.osx.OSXAdapter");
-	Method registerMethod = osxAdapter.getDeclaredMethod("registerMacOSXApplication", new Class[0]);
-	if (registerMethod != null) {
-	    Object[] args = {};
-	    registerMethod.invoke(osxAdapter, args);
-	}
-
-	Class[] defArgs = { Boolean.class };
-	defArgs[0] = boolean.class;
-	Method prefsEnableMethod = osxAdapter.getDeclaredMethod("enablePrefs", defArgs);
-	if (prefsEnableMethod != null) {
-	    Object args[] = { Boolean.FALSE };
-	    prefsEnableMethod.invoke(osxAdapter, args);
-	}
-
-    }
-    
 
     private void registerMacOSX()
 	    throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, IllegalArgumentException, SecurityException {

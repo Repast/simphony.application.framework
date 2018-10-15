@@ -83,13 +83,15 @@ public class Canvas2D implements GLEventListener, Canvas {
     GLCapabilities caps = new GLCapabilities(gp);
     caps.setSampleBuffers(true);
     caps.setNumSamples(4);
-    if (Platform.getOSType().equals(OSType.MACOS) ||
-	Platform.getOSType().equals(OSType.LINUX)) {
-      drawable = new GLJPanel(caps);
-      ((GLJPanel)drawable).setSurfaceScale(new int[]{ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE});
-    } else {
-      drawable = new GLCanvas(caps);
-    }
+    drawable = new GLJPanel(caps);
+    ((GLJPanel)drawable).setSurfaceScale(new int[]{ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE});
+//    if (Platform.getOSType().equals(OSType.MACOS) ||
+//	Platform.getOSType().equals(OSType.LINUX)) {
+//      drawable = new GLJPanel(caps);
+//      ((GLJPanel)drawable).setSurfaceScale(new int[]{ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE});
+//    } else {
+//      drawable = new GLCanvas(caps);
+//    }
     drawable.addGLEventListener(this);
     drawable.setAutoSwapBufferMode(false);
     camera = new Camera(this, drawable);

@@ -6,8 +6,8 @@ package saf.v3d.event;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Quat4f;
 

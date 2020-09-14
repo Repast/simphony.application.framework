@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLProfile;
-import javax.media.opengl.awt.GLCanvas;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLCapabilities;
+import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.awt.GLCanvas;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -95,7 +95,7 @@ public class OGLExp {
      * (non-Javadoc)
      * 
      * @see
-     * javax.media.opengl.GLEventListener#display(javax.media.opengl.GLAutoDrawable
+     * com.jogamp.opengl.GLEventListener#display(com.jogamp.opengl.GLAutoDrawable
      * )
      */
     @Override
@@ -174,7 +174,7 @@ public class OGLExp {
    
     
     /* (non-Javadoc)
-     * @see javax.media.opengl.GLEventListener#dispose(javax.media.opengl.GLAutoDrawable)
+     * @see com.jogamp.opengl.GLEventListener#dispose(com.jogamp.opengl.GLAutoDrawable)
      */
     @Override
     public void dispose(GLAutoDrawable arg0) {
@@ -185,7 +185,7 @@ public class OGLExp {
      * (non-Javadoc)
      * 
      * @see
-     * javax.media.opengl.GLEventListener#init(javax.media.opengl.GLAutoDrawable
+     * com.jogamp.opengl.GLEventListener#init(com.jogamp.opengl.GLAutoDrawable
      * )
      */
     @Override
@@ -211,7 +211,7 @@ public class OGLExp {
      * (non-Javadoc)
      * 
      * @see
-     * javax.media.opengl.GLEventListener#reshape(javax.media.opengl.GLAutoDrawable
+     * com.jogamp.opengl.GLEventListener#reshape(com.jogamp.opengl.GLAutoDrawable
      * , int, int, int, int)
      */
     @Override

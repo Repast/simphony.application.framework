@@ -3,7 +3,7 @@ package saf.v3d.scene;
 
 import java.util.Arrays;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Color4f;
 
 public class MaterialAppearance implements Appearance {

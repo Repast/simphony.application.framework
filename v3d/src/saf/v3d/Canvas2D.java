@@ -3,7 +3,7 @@
  */
 package saf.v3d;
 
-import static javax.media.opengl.GL.GL_COLOR_BUFFER_BIT;
+import static com.jogamp.opengl.GL.GL_COLOR_BUFFER_BIT;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,15 +16,15 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.media.nativewindow.ScalableSurface;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLException;
-import javax.media.opengl.GLProfile;
-import javax.media.opengl.awt.GLCanvas;
-import javax.media.opengl.awt.GLJPanel;
+import com.jogamp.nativewindow.ScalableSurface;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLCapabilities;
+import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.GLException;
+import com.jogamp.opengl.GLProfile;
+import com.jogamp.opengl.awt.GLCanvas;
+import com.jogamp.opengl.awt.GLJPanel;
 import javax.swing.JPanel;
 import javax.vecmath.Color4f;
 import javax.vecmath.Point3f;
@@ -84,7 +84,7 @@ public class Canvas2D implements GLEventListener, Canvas {
     caps.setSampleBuffers(true);
     caps.setNumSamples(4);
     drawable = new GLJPanel(caps);
-    ((GLJPanel)drawable).setSurfaceScale(new int[]{ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE});
+    ((GLJPanel)drawable).setSurfaceScale(new float[]{ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE});
 //    if (Platform.getOSType().equals(OSType.MACOS) ||
 //	Platform.getOSType().equals(OSType.LINUX)) {
 //      drawable = new GLJPanel(caps);
@@ -256,7 +256,7 @@ public class Canvas2D implements GLEventListener, Canvas {
    * (non-Javadoc)
    * 
    * @see
-   * javax.media.opengl.GLEventListener#dispose(javax.media.opengl.GLAutoDrawable
+   * com.jogamp.opengl.GLEventListener#dispose(com.jogamp.opengl.GLAutoDrawable
    * )
    */
   @Override

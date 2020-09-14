@@ -7,7 +7,7 @@ import java.awt.Font;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -81,7 +81,7 @@ public class VLabelLayer extends VSpatial {
   /*
    * (non-Javadoc)
    * 
-   * @see anl.mifs.viz3d.AbstractVNode#doDraw(javax.media.opengl.GL)
+   * @see anl.mifs.viz3d.AbstractVNode#doDraw(com.jogamp.opengl.GL)
    */
   @Override
   protected void doDraw(GL2 gl, RenderState rState) {

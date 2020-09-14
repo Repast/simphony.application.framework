@@ -5,8 +5,8 @@ package saf.v3d.render;
 
 import java.nio.FloatBuffer;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
 
 
 /**
@@ -44,7 +44,7 @@ public class DisplayListRenderer implements PolygonRenderer {
   }
   
   /* (non-Javadoc)
-   * @see saf.v3d.render.Renderer#dispose(javax.media.opengl.GL, int)
+   * @see saf.v3d.render.Renderer#dispose(com.jogamp.opengl.GL, int)
    */
   // no-op here because all disposal is done through the DLRenderManager
   @Override

@@ -3,8 +3,8 @@ package saf.v3d.util;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 
-import javax.media.opengl.GL2;
-import javax.media.opengl.glu.gl2.GLUgl2;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.glu.gl2.GLUgl2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 

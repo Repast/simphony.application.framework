@@ -9,9 +9,9 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.media.opengl.glu.GLU;
-import javax.media.opengl.glu.GLUtessellator;
-import javax.media.opengl.glu.GLUtessellatorCallbackAdapter;
+import com.jogamp.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLUtessellator;
+import com.jogamp.opengl.glu.GLUtessellatorCallbackAdapter;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
 
@@ -68,7 +68,7 @@ public class Tessellator {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.media.opengl.glu.GLUtessellatorCallbackAdapter#begin(int)
+     * @see com.jogamp.opengl.glu.GLUtessellatorCallbackAdapter#begin(int)
      */
     @Override
     // where mode is GL_TRIANGLES, GL_TRIANGLE_STRIP etc.
@@ -91,7 +91,7 @@ public class Tessellator {
      * (non-Javadoc)
      * 
      * @see
-     * javax.media.opengl.glu.GLUtessellatorCallbackAdapter#vertex(java.lang
+     * com.jogamp.opengl.glu.GLUtessellatorCallbackAdapter#vertex(java.lang
      * .Object)
      */
     @Override
@@ -106,7 +106,7 @@ public class Tessellator {
     /*
      * (non-Javadoc)
      * 
-     * @see javax.media.opengl.glu.GLUtessellatorCallbackAdapter#error(int)
+     * @see com.jogamp.opengl.glu.GLUtessellatorCallbackAdapter#error(int)
      */
     @Override
     public void error(int error) {
@@ -117,7 +117,7 @@ public class Tessellator {
      * (non-Javadoc)
      * 
      * @see
-     * javax.media.opengl.glu.GLUtessellatorCallbackAdapter#combine(double[],
+     * com.jogamp.opengl.glu.GLUtessellatorCallbackAdapter#combine(double[],
      * java.lang.Object[], float[], java.lang.Object[])
      */
     @Override

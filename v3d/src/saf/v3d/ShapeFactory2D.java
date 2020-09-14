@@ -17,9 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
 import javax.vecmath.Point3f;
 
 import saf.v3d.render.DisplayListRenderer;
@@ -419,7 +419,7 @@ public class ShapeFactory2D implements CanvasListener {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.ui.v3d.CanvasListener#dispose(javax.media.opengl.GLAutoDrawable)
+   * @see saf.ui.v3d.CanvasListener#dispose(com.jogamp.opengl.GLAutoDrawable)
    */
   @Override
   public void dispose(GLAutoDrawable drawable) {
@@ -514,7 +514,7 @@ public class ShapeFactory2D implements CanvasListener {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.v3d.CanvasListener#reshape(javax.media.opengl.GLAutoDrawable,
+   * @see saf.v3d.CanvasListener#reshape(com.jogamp.opengl.GLAutoDrawable,
    * float, float, saf.v3d.scene.VRoot)
    */
   @Override

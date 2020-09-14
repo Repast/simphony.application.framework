@@ -5,7 +5,7 @@ package saf.v3d.event;
 
 import java.awt.event.MouseEvent;
 
-import javax.media.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLAutoDrawable;
 import javax.vecmath.Vector3f;
 
 /**

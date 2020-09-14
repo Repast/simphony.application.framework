@@ -3,7 +3,7 @@
  */
 package saf.v3d.scene;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 import saf.v3d.render.RenderState;
 
@@ -32,7 +32,7 @@ public class TextureLayer extends VComposite {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.v3d.scene.VSpatial#draw(javax.media.opengl.GL,
+   * @see saf.v3d.scene.VSpatial#draw(com.jogamp.opengl.GL,
    * saf.v3d.render.RenderState)
    */
   @Override

@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
 
 import saf.v3d.render.RenderState;
 
@@ -78,7 +78,7 @@ public class VEdgeLayer extends VLayer {
   /*
    * (non-Javadoc)
    * 
-   * @see anl.mifs.viz3d.AbstractVNode#doDraw(javax.media.opengl.GL)
+   * @see anl.mifs.viz3d.AbstractVNode#doDraw(com.jogamp.opengl.GL)
    */
   @Override
   protected void doDraw(GL2 gl, RenderState rState) {

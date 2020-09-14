@@ -3,7 +3,7 @@ package saf.v3d.scene;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -123,7 +123,7 @@ public abstract class VComposite extends VSpatial {
   /*
    * (non-Javadoc)
    * 
-   * @see anl.mifs.viz3d.AbstractVNode#doDraw(javax.media.opengl.GL)
+   * @see anl.mifs.viz3d.AbstractVNode#doDraw(com.jogamp.opengl.GL)
    */
   @Override
   protected void doDraw(GL2 gl, RenderState rState) {

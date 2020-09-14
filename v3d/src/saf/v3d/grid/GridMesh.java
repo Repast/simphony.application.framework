@@ -5,8 +5,8 @@ package saf.v3d.grid;
 
 import java.nio.FloatBuffer;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
@@ -223,7 +223,7 @@ public class GridMesh implements Shape {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.v3d.render.Shape#render(javax.media.opengl.GL,
+   * @see saf.v3d.render.Shape#render(com.jogamp.opengl.GL,
    * saf.v3d.render.RenderState)
    */
   @Override

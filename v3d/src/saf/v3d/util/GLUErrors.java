@@ -3,7 +3,7 @@
  */
 package saf.v3d.util;
 
-import javax.media.opengl.glu.GLU;
+import com.jogamp.opengl.glu.GLU;
 
 /**
  * JOGL is missing the GLU errors so we add them here.

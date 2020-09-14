@@ -6,7 +6,7 @@ package saf.v3d.scene;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;

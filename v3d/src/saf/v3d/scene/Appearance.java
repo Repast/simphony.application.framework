@@ -3,7 +3,7 @@
  */
 package saf.v3d.scene;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  * Interface for classes that implement an appearance.

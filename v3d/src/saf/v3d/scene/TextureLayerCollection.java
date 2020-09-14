@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 import saf.v3d.render.RenderState;
 import saf.v3d.render.Texture2D;

@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Color4f;
 
 import saf.v3d.scene.Appearance;

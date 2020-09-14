@@ -5,8 +5,8 @@ package saf.v3d.render;
 
 import java.nio.FloatBuffer;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Point3f;
 
 import saf.v3d.util.Utils3D;

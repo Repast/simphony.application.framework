@@ -5,7 +5,7 @@ package saf.v3d.render;
 
 import java.nio.FloatBuffer;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 
 /**
  * Interface for classes that can render using a GL

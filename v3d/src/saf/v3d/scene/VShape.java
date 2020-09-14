@@ -5,7 +5,7 @@ package saf.v3d.scene;
 
 import java.awt.Color;
 
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 

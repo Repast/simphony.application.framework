@@ -3,8 +3,8 @@
  */
 package saf.v3d;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
@@ -73,7 +73,7 @@ public class BoxShape2D implements Shape {
   }
 
   /* (non-Javadoc)
-   * @see saf.v3d.render.Shape#render(javax.media.opengl.GL, saf.v3d.render.RenderState)
+   * @see saf.v3d.render.Shape#render(com.jogamp.opengl.GL, saf.v3d.render.RenderState)
    */
   @Override
   public void render(GL2 gl, RenderState state) {

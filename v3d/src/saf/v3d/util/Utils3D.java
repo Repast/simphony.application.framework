@@ -87,11 +87,21 @@ public class Utils3D {
 		return new Color(color[0], color[1], color[2], color[3]);
 	}
 
+	/**
+	 * Updated color3f from color
+	 * @param color3f
+	 * @param color
+	 */
 	public static void updateColor(Color3f color3f, Color color) {
 		color3f.set((float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f,
 				(float) color.getBlue() / 255.0f);
 	}
 	
+	/**
+	 * Updates color4f from color.
+	 * @param color4f
+	 * @param color
+	 */
 	public static void updateColor(Color4f color4f, Color color) {
 		color4f.set((float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f,
 				(float) color.getBlue() / 255.0f, (float) color.getAlpha() / 255.0f);

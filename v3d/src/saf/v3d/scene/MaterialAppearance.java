@@ -4,7 +4,7 @@ package saf.v3d.scene;
 import java.util.Arrays;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Color4f;
+import org.jogamp.vecmath.Color4f;
 
 public class MaterialAppearance implements Appearance {
   

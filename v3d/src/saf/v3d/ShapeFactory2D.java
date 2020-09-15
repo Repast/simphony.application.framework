@@ -20,7 +20,7 @@ import java.util.Map;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.render.DisplayListRenderer;
 import saf.v3d.render.LineListRenderer;
@@ -525,7 +525,7 @@ public class ShapeFactory2D implements CanvasListener {
    * (non-Javadoc)
    * 
    * @see saf.v3d.CanvasListener#vSpatialMoved(saf.v3d.scene.VSpatial,
-   * javax.vecmath.Point3f)
+   * org.jogamp.vecmath.Point3f)
    */
   @Override
   public void vSpatialMoved(VSpatial spatial, Point3f localTrans) {

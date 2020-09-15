@@ -6,7 +6,7 @@ package saf.v3d.scene;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.picking.BoundingSphere;
 

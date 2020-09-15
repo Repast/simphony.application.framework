@@ -1,6 +1,6 @@
 package saf.v3d.util;
 
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 /**
  * 2D Bezier curve tessellation.

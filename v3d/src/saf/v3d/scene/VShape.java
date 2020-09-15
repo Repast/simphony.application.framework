@@ -6,8 +6,8 @@ package saf.v3d.scene;
 import java.awt.Color;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.AppearanceFactory;
 import saf.v3d.render.BorderRenderer;

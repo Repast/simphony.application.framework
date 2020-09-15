@@ -6,7 +6,7 @@ package saf.v3d.event;
 import java.awt.event.MouseEvent;
 
 import com.jogamp.opengl.GLAutoDrawable;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Zooms - translate along z - via a mouse (left button + ctrl and dragging

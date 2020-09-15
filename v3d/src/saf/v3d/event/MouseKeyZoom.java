@@ -43,7 +43,7 @@ public class MouseKeyZoom extends InputHandler {
 
   // Methods required for the implementation of MouseMotionListener
   public void mouseDragged(MouseEvent evt) {
-    if (((evt.getModifiers() & buttonMask) != 0) && isEnabled && evt.isShiftDown()) {
+    if (((evt.getModifiersEx() & buttonMask) != 0) && isEnabled && evt.isShiftDown()) {
 
       int y = evt.getY();
       if (lastY != -1) {

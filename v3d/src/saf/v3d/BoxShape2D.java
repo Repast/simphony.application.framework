@@ -5,8 +5,8 @@ package saf.v3d;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.picking.BoundingSphere;
 import saf.v3d.render.RenderState;
@@ -57,7 +57,7 @@ public class BoxShape2D implements Shape {
   }
 
   /* (non-Javadoc)
-   * @see saf.v3d.render.Shape#intersects(javax.vecmath.Point3f, javax.vecmath.Vector3f)
+   * @see saf.v3d.render.Shape#intersects(org.jogamp.vecmath.Point3f, org.jogamp.vecmath.Vector3f)
    */
   @Override
   public boolean intersects(Point3f rayOrigin, Vector3f rayDirection) {
@@ -65,7 +65,7 @@ public class BoxShape2D implements Shape {
   }
 
   /* (non-Javadoc)
-   * @see saf.v3d.render.Shape#intersects(javax.vecmath.Point3f)
+   * @see saf.v3d.render.Shape#intersects(org.jogamp.vecmath.Point3f)
    */
   @Override
   public boolean intersects(Point3f point) {

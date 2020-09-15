@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.picking.Accumulator;
 import saf.v3d.picking.BoundingSphere;
@@ -138,7 +138,7 @@ public abstract class VComposite extends VSpatial {
    * (non-Javadoc)
    * 
    * @see
-   * anl.mifs.viz3d.VSpatial#intersects(javax.vecmath.Point3f,anl.mifs.viz3d
+   * anl.mifs.viz3d.VSpatial#intersects(org.jogamp.vecmath.Point3f,anl.mifs.viz3d
    * .Accumulator)
    */
   @Override
@@ -157,8 +157,8 @@ public abstract class VComposite extends VSpatial {
   /*
    * (non-Javadoc)
    * 
-   * @see anl.mifs.viz3d.VSpatial#intersects(javax.vecmath.Point3f,
-   * javax.vecmath.Vector3f, anl.mifs.viz3d.Accumulator)
+   * @see anl.mifs.viz3d.VSpatial#intersects(org.jogamp.vecmath.Point3f,
+   * org.jogamp.vecmath.Vector3f, anl.mifs.viz3d.Accumulator)
    */
   @Override
   public void intersects(Point3f rayOrigin, Vector3f rayDirection, Accumulator accumulator) {

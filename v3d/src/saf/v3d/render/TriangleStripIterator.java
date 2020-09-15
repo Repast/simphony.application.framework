@@ -5,7 +5,7 @@ package saf.v3d.render;
 
 import java.nio.FloatBuffer;
 
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 /**
  * An iterator that produces triangles from list of vertices
@@ -46,7 +46,7 @@ public class TriangleStripIterator implements TriangleIterator {
   }
 
   /* (non-Javadoc)
-   * @see saf.v3d.render.TriangleIterator#next(javax.vecmath.Point3f[])
+   * @see saf.v3d.render.TriangleIterator#next(org.jogamp.vecmath.Point3f[])
    */
   @Override
   public void next(Point3f p0, Point3f p1, Point3f p2) {

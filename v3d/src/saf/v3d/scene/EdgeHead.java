@@ -4,8 +4,8 @@
 package saf.v3d.scene;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Interface for edge head icon (arrows, etc.).

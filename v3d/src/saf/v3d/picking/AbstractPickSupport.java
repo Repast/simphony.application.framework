@@ -34,7 +34,7 @@ public abstract class AbstractPickSupport extends MouseAdapter {
       mousePressed = true;
       x = e.getX();
       y = e.getY();
-      modifiers = e.getModifiers();
+      modifiers = e.getModifiersEx();
       canvas.update();
     }
   }

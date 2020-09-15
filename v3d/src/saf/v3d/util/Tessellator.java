@@ -12,8 +12,8 @@ import java.util.List;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUtessellator;
 import com.jogamp.opengl.glu.GLUtessellatorCallbackAdapter;
-import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.render.DisplayListRenderer;
 import saf.v3d.render.PolygonRenderer;

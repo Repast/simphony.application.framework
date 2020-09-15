@@ -4,7 +4,7 @@
 package saf.v3d;
 
 import com.jogamp.opengl.GLAutoDrawable;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.scene.VRoot;
 import saf.v3d.scene.VSpatial;

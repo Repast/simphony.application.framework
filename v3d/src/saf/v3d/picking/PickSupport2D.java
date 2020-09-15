@@ -5,7 +5,7 @@ package saf.v3d.picking;
 
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.Canvas2D;
 import saf.v3d.scene.VComposite;

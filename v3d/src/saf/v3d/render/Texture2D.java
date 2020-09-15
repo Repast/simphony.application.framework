@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.picking.BoundingSphere;
 

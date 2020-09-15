@@ -1,6 +1,6 @@
 package saf.v3d.grid;
 
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.scene.VShape;
 

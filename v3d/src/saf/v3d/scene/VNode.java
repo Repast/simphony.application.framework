@@ -6,9 +6,9 @@ package saf.v3d.scene;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.vecmath.Point3f;
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Quat4f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.picking.Accumulator;
 import saf.v3d.picking.BoundingSphere;
@@ -98,7 +98,7 @@ public class VNode extends VComposite {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.v3d.scene.VComposite#intersects(javax.vecmath.Point3f,
+   * @see saf.v3d.scene.VComposite#intersects(org.jogamp.vecmath.Point3f,
    * saf.v3d.picking.Accumulator)
    */
   @Override
@@ -112,8 +112,8 @@ public class VNode extends VComposite {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.v3d.scene.VComposite#intersects(javax.vecmath.Point3f,
-   * javax.vecmath.Vector3f, saf.v3d.picking.Accumulator)
+   * @see saf.v3d.scene.VComposite#intersects(org.jogamp.vecmath.Point3f,
+   * org.jogamp.vecmath.Vector3f, saf.v3d.picking.Accumulator)
    */
   @Override
   public void intersects(Point3f rayOrigin, Vector3f rayDirection, Accumulator accumulator) {

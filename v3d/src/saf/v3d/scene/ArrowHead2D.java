@@ -2,8 +2,8 @@ package saf.v3d.scene;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.util.Utils3D;
 
@@ -81,7 +81,7 @@ public class ArrowHead2D implements EdgeHead {
   }
 
   /* (non-Javadoc)
-   * @see saf.ui.v3d.EdgeHead#intersects(javax.vecmath.Point3f, javax.vecmath.Vector3f)
+   * @see saf.ui.v3d.EdgeHead#intersects(org.jogamp.vecmath.Point3f, org.jogamp.vecmath.Vector3f)
    */
   @Override
   public boolean intersects(Point3f rayOrigin, Vector3f rayDirection) {
@@ -89,7 +89,7 @@ public class ArrowHead2D implements EdgeHead {
   }
 
   /* (non-Javadoc)
-   * @see saf.ui.v3d.EdgeHead#intersects(javax.vecmath.Point3f)
+   * @see saf.ui.v3d.EdgeHead#intersects(org.jogamp.vecmath.Point3f)
    */
   @Override
   public boolean intersects(Point3f point) {

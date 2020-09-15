@@ -26,8 +26,8 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.awt.GLJPanel;
 import javax.swing.JPanel;
-import javax.vecmath.Color4f;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Color4f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.event.MouseKeyZoom;
 import saf.v3d.event.MouseTranslate;
@@ -57,7 +57,7 @@ public class Canvas2D implements GLEventListener, Canvas {
 
   private GLAutoDrawable drawable;
   private JPanel panel;
-  private Color4f background = new Color4f(Color.WHITE);
+  private Color4f background = new Color4f(Color.WHITE.getRGBComponents(null));
 
   private MouseTranslate translator;
   private MouseWheelSZoom wheelZoomer;
@@ -100,9 +100,9 @@ public class Canvas2D implements GLEventListener, Canvas {
     root = camera.getRoot();
     root.id = "ROOT";
 
-    translator = new MouseTranslate(camera, MouseEvent.BUTTON3_MASK, 1f, 1f);
+    translator = new MouseTranslate(camera, MouseEvent.BUTTON3_DOWN_MASK, 1f, 1f);
     wheelZoomer = new MouseWheelSZoom(camera);
-    keyZoomer = new MouseKeyZoom(camera, MouseEvent.BUTTON3_MASK);
+    keyZoomer = new MouseKeyZoom(camera, MouseEvent.BUTTON3_DOWN_MASK);
     picker = new PickSupport2D(this);
   }
 
@@ -414,7 +414,7 @@ public class Canvas2D implements GLEventListener, Canvas {
    *          the new background color
    */
   public void setBackgroundColor(Color color) {
-    background.set(color);
+    background.set(color.getComponents(null));
   }
 
   /**
@@ -423,7 +423,7 @@ public class Canvas2D implements GLEventListener, Canvas {
    * @return the background color.
    */
   public Color getBackgroundColor() {
-    return background.get();
+    return new Color(background.getX(), background.getY(), background.getZ(), background.getW());
   }
 
   /**

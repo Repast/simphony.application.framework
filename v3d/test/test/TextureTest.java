@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import com.jogamp.opengl.GLAutoDrawable;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.Canvas2D;
 import saf.v3d.CanvasListener;

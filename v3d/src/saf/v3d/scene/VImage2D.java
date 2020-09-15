@@ -7,9 +7,9 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Matrix4f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.AppearanceFactory;
 import saf.v3d.picking.Accumulator;

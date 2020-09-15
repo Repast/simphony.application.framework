@@ -5,7 +5,7 @@ package saf.v3d.event;
 
 import java.awt.event.MouseEvent;
 
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.scene.Camera;
 
@@ -23,7 +23,7 @@ public class MouseTranslate extends InputHandler {
   private Camera camera;
   
   public MouseTranslate(Camera camera) {
-    this(camera, MouseEvent.BUTTON3_MASK, .01f, .01f);
+    this(camera, MouseEvent.BUTTON3_DOWN_MASK, .01f, .01f);
   }
   
   /**
@@ -47,7 +47,7 @@ public class MouseTranslate extends InputHandler {
   }
   
   public void mousePressed(MouseEvent evt) {
-    if (((evt.getModifiers() & buttonMask) != 0) && isEnabled && !evt.isShiftDown()) {
+    if (((evt.getModifiersEx() & buttonMask) != 0) && isEnabled && !evt.isShiftDown()) {
       lastX = evt.getX();
       lastY = evt.getY();
     }
@@ -55,8 +55,7 @@ public class MouseTranslate extends InputHandler {
 
   // Methods required for the implementation of MouseMotionListener
   public void mouseDragged(MouseEvent evt) {
-    if (((evt.getModifiers() & buttonMask) != 0) && isEnabled && !evt.isShiftDown()) {
-
+    if (((evt.getModifiersEx() & buttonMask) != 0) && isEnabled && !evt.isShiftDown()) {
       int x = evt.getX();
       int y = evt.getY();
 

@@ -5,8 +5,8 @@ import java.nio.IntBuffer;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.gl2.GLUgl2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.math.Ray3f;
 

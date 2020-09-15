@@ -9,19 +9,21 @@ import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Color4f;
+import org.jogamp.vecmath.Matrix4f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Quat4f;
+import org.jogamp.vecmath.Tuple3f;
+import org.jogamp.vecmath.Vector3f;
+
+import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.gl2.GLUgl2;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Point3f;
-import javax.vecmath.Quat4f;
-import javax.vecmath.Tuple3f;
-import javax.vecmath.Vector3f;
 
 import saf.v3d.picking.BoundingSphere;
 import saf.v3d.picking.Box;
 import saf.v3d.scene.VSpatial;
-
-import com.jogamp.common.nio.Buffers;
 
 /**
  * Static utililty methods for 3D.
@@ -81,9 +83,38 @@ public class Utils3D {
     return Math.abs(val) < K_EPSILON;
   }
   
-  public static Color floatToColor(float[] color) {
-    return new Color(color[0], color[1], color[2], color[3]);
-  }
+	public static Color floatToColor(float[] color) {
+		return new Color(color[0], color[1], color[2], color[3]);
+	}
+
+	public static void updateColor(Color3f color3f, Color color) {
+		color3f.set((float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f,
+				(float) color.getBlue() / 255.0f);
+	}
+	
+	public static void updateColor(Color4f color4f, Color color) {
+		color4f.set((float) color.getRed() / 255.0f, (float) color.getGreen() / 255.0f,
+				(float) color.getBlue() / 255.0f, (float) color.getAlpha() / 255.0f);
+	}
+
+	public static Color getColor(Color3f color) {
+		int r = Math.round(color.getX() * 255.0f);
+		int g = Math.round(color.getY() * 255.0f);
+		int b = Math.round(color.getZ() * 255.0f);
+
+		return new Color(r, g, b);
+	}
+	
+	public static Color getColor(Color4f color) {
+		int r = Math.round(color.getX() * 255.0f);
+		int g = Math.round(color.getY() * 255.0f);
+		int b = Math.round(color.getZ() * 255.0f);
+		int a = Math.round(color.getW() * 255.0f);
+
+		return new Color(r, g, b, a);
+	}
+  
+  
   /**
    * Assumes quat is normalized. Rotates in tuple by the
    * rotation defined by the quaterion.

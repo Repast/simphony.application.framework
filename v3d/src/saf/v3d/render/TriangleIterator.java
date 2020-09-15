@@ -3,7 +3,7 @@
  */
 package saf.v3d.render;
 
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 /**
  * Interface for iterators over triangles.

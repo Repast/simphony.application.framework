@@ -1,6 +1,6 @@
 package saf.v3d.grid;
 
-import javax.vecmath.Color3f;
+import org.jogamp.vecmath.Color3f;
 
 public interface GridColorMap {
   

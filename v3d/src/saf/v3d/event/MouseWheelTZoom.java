@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import com.jogamp.opengl.GLAutoDrawable;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Vector3f;
 
 /**
  * Adds zooming - translate along z - to matrix via a mouse wheel. This will 

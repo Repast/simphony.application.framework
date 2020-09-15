@@ -6,8 +6,8 @@ import java.nio.IntBuffer;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Color3f;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3f;
 
 import com.jogamp.common.nio.Buffers;
 

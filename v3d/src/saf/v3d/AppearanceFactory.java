@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Color4f;
+import org.jogamp.vecmath.Color4f;
 
 import saf.v3d.scene.Appearance;
 import saf.v3d.scene.ColorAppearance;
@@ -43,7 +43,7 @@ public class AppearanceFactory {
   
   public static MaterialAppearance createMaterialAppearance(Color color) {
     Color4f ambientColor = new Color4f(new float[]{.2f, .2f, .2f, 1});
-    Color4f diffuseColor =  new Color4f(color);
+    Color4f diffuseColor =  new Color4f(color.getRGBComponents(null));
     Color4f specularColor =  new Color4f(new float[]{1, 1, 1, 1});
     Color4f emissiveColor = new Color4f();
     float shininess = 64;

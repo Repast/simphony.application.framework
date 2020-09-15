@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.AxisAngle4f;
-import javax.vecmath.Matrix3f;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Point3f;
-import javax.vecmath.Quat4f;
-import javax.vecmath.Tuple3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.AxisAngle4f;
+import org.jogamp.vecmath.Matrix3f;
+import org.jogamp.vecmath.Matrix4f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Quat4f;
+import org.jogamp.vecmath.Tuple3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.AppearanceFactory;
 import saf.v3d.picking.Accumulator;

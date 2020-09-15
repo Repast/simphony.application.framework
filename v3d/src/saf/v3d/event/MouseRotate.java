@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
-import javax.vecmath.AxisAngle4f;
-import javax.vecmath.Quat4f;
+import org.jogamp.vecmath.AxisAngle4f;
+import org.jogamp.vecmath.Quat4f;
 
 import saf.v3d.scene.VSpatial;
 
@@ -54,7 +54,7 @@ public class MouseRotate extends InputHandler {
   }
   
   public void mousePressed(MouseEvent evt) {
-    if (((evt.getModifiers() & MouseEvent.BUTTON1_MASK) != 0) && isEnabled) {
+    if (((evt.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) != 0) && isEnabled) {
       prevMouseX = evt.getX();
       prevMouseY = evt.getY();
     }
@@ -62,7 +62,7 @@ public class MouseRotate extends InputHandler {
 
   // Methods required for the implementation of MouseMotionListener
   public void mouseDragged(MouseEvent evt) {
-    if (((evt.getModifiers() & MouseEvent.BUTTON1_MASK) != 0) && !evt.isAltDown() && isEnabled) {
+    if (((evt.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) != 0) && !evt.isAltDown() && isEnabled) {
       int x = evt.getX();
       int y = evt.getY();
       Dimension size = evt.getComponent().getSize();

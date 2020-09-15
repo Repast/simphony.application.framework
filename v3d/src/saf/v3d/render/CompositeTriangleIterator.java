@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Point3f;
 
 /**
  * Triangle iterator that iterates over the triangles
@@ -35,7 +35,7 @@ public class CompositeTriangleIterator implements TriangleIterator {
   }
 
   /* (non-Javadoc)
-   * @see saf.v3d.render.TriangleIterator#next(javax.vecmath.Point3f, javax.vecmath.Point3f, javax.vecmath.Point3f)
+   * @see saf.v3d.render.TriangleIterator#next(org.jogamp.vecmath.Point3f, org.jogamp.vecmath.Point3f, org.jogamp.vecmath.Point3f)
    */
   @Override
   public void next(Point3f p1, Point3f p2, Point3f p3) {

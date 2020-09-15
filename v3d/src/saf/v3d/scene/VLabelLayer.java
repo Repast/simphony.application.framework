@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.picking.Accumulator;
 import saf.v3d.picking.BoundingSphere;

@@ -6,8 +6,8 @@ package saf.v3d.scene;
 import java.nio.ByteBuffer;
 
 import com.jogamp.opengl.GL2;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import org.jogamp.vecmath.Point3f;
+import org.jogamp.vecmath.Vector3f;
 
 import saf.v3d.picking.BoundingSphere;
 import saf.v3d.render.RenderState;
@@ -174,8 +174,8 @@ public class VEdge2D extends VGeometry {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.ui.v3d.VGeometry#intersects(javax.vecmath.Point3f,
-   * javax.vecmath.Vector3f)
+   * @see saf.ui.v3d.VGeometry#intersects(org.jogamp.vecmath.Point3f,
+   * org.jogamp.vecmath.Vector3f)
    */
   @Override
   protected boolean intersects(Point3f rayOrigin, Vector3f rayDirection) {
@@ -185,7 +185,7 @@ public class VEdge2D extends VGeometry {
   /*
    * (non-Javadoc)
    * 
-   * @see saf.ui.v3d.VGeometry#intersects(javax.vecmath.Point3f)
+   * @see saf.ui.v3d.VGeometry#intersects(org.jogamp.vecmath.Point3f)
    */
   @Override
   protected boolean intersects(Point3f point) {

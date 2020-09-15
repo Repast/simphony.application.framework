@@ -23,8 +23,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.vecmath.Color3f;
-import javax.vecmath.Point3f;
+import org.jogamp.vecmath.Color3f;
+import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.AppearanceFactory;
 import saf.v3d.Canvas2D;
@@ -49,6 +49,7 @@ import saf.v3d.scene.VNode;
 import saf.v3d.scene.VRoot;
 import saf.v3d.scene.VShape;
 import saf.v3d.scene.VSpatial;
+import saf.v3d.util.Utils3D;
 
 import com.jogamp.common.nio.Buffers;
 
@@ -460,7 +461,7 @@ public class Test2D {
     /*
      * (non-Javadoc)
      * 
-     * @see saf.v3d.GridColorMap#getColor(int, int, javax.vecmath.Color3f)
+     * @see saf.v3d.GridColorMap#getColor(int, int, org.jogamp.vecmath.Color3f)
      */
     @Override
     public void getColor(int x, int y, Color3f color) {
@@ -468,42 +469,42 @@ public class Test2D {
       if (flag == 0) {
         if (y == 0) {
           if (x == 0)
-            color.set(Color.RED);
+        	  Utils3D.updateColor(color,  Color.RED);
           else if (x == 1)
-            color.set(Color.GREEN);
+        	  Utils3D.updateColor(color,  Color.GREEN);
           else if (x == 2)
-            color.set(Color.BLUE);
+        	  Utils3D.updateColor(color,  Color.BLUE);
           else
-            color.set(Color.GRAY);
+        	  Utils3D.updateColor(color,  Color.GRAY);
         } else {
           if (x == 0)
-            color.set(Color.BLUE);
+        	  Utils3D.updateColor(color,  Color.BLUE);
           else if (x == 1)
-            color.set(Color.PINK);
+        	  Utils3D.updateColor(color,  Color.PINK);
           else if (x == 2)
-            color.set(Color.CYAN);
+        	  Utils3D.updateColor(color,  Color.CYAN);
           else
-            color.set(Color.GRAY);
+        	  Utils3D.updateColor(color,  Color.GRAY);
         }
       } else {
         if (y == 1) {
-          if (x == 0)
-            color.set(Color.RED);
-          else if (x == 1)
-            color.set(Color.GREEN);
-          else if (x == 2)
-            color.set(Color.BLUE);
-          else
-            color.set(Color.GRAY);
+        	if (x == 0)
+          	  Utils3D.updateColor(color,  Color.RED);
+            else if (x == 1)
+          	  Utils3D.updateColor(color,  Color.GREEN);
+            else if (x == 2)
+          	  Utils3D.updateColor(color,  Color.BLUE);
+            else
+          	  Utils3D.updateColor(color,  Color.GRAY);
         } else {
-          if (x == 0)
-            color.set(Color.BLUE);
-          else if (x == 1)
-            color.set(Color.PINK);
-          else if (x == 2)
-            color.set(Color.CYAN);
-          else
-            color.set(Color.GRAY);
+        	if (x == 0)
+          	  Utils3D.updateColor(color,  Color.BLUE);
+            else if (x == 1)
+          	  Utils3D.updateColor(color,  Color.PINK);
+            else if (x == 2)
+          	  Utils3D.updateColor(color,  Color.CYAN);
+            else
+          	  Utils3D.updateColor(color,  Color.GRAY);
 
         }
       }

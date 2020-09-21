@@ -1,5 +1,6 @@
 package saf.v3d.render;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 
 import org.jogamp.vecmath.Point3f;
@@ -45,8 +46,8 @@ public class TriangleQSIterator implements TriangleIterator {
    */
   public TriangleQSIterator(FloatBuffer vertices) {
     this.vertices = vertices;
-    if (vertices.limit() > 5) {
-      vertices.rewind();
+    if (((Buffer)vertices).limit() > 5) {
+      ((Buffer)vertices).rewind();
       quad.p2.x = vertices.get();
       quad.p2.y = vertices.get();
       quad.p2.z = vertices.get();
@@ -66,7 +67,7 @@ public class TriangleQSIterator implements TriangleIterator {
    */
   @Override
   public boolean hasNext() {
-    return index < vertices.limit();
+    return index < ((Buffer)vertices).limit();
   }
 
   /*
@@ -82,7 +83,7 @@ public class TriangleQSIterator implements TriangleIterator {
       // and quad.p1 to quad.p3, then get the next two points.
       quad.p0.set(quad.p2);
       quad.p1.set(quad.p3);
-      vertices.position(index);
+      ((Buffer)vertices).position(index);
       quad.p2.x = vertices.get();
       quad.p2.y = vertices.get();
       quad.p2.z = vertices.get();

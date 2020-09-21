@@ -3,6 +3,7 @@
  */
 package saf.v3d.render;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 
 import com.jogamp.opengl.GL;
@@ -46,7 +47,7 @@ public class VertexVBORenderer implements PolygonRenderer {
     vboIndex = indices[0];
     gl.glBindBuffer(GL.GL_ARRAY_BUFFER, vboIndex);
     FloatBuffer buf = renderData.getVertices();
-    buf.rewind();
+    ((Buffer)buf).rewind();
     gl.glBufferData(GL.GL_ARRAY_BUFFER, buf.capacity() * 3 * Buffers.SIZEOF_FLOAT, buf, 
         GL.GL_STATIC_DRAW);
     invalid = false;

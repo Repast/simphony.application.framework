@@ -11,6 +11,7 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -385,7 +386,7 @@ public class ShapeFactory2D implements CanvasListener {
 	renderer = createLineRenderer(path);
       }
 
-      if (renderer.getVertices().limit() == 0) {
+      if (((Buffer)(renderer.getVertices())).limit() == 0) {
 	renderer = createLineRenderer(path);
       }
 
@@ -459,7 +460,7 @@ public class ShapeFactory2D implements CanvasListener {
       buf.put(ca * radius);
       buf.put(0f);
     }
-    buf.rewind();
+    ((Buffer)buf).rewind();
     return buf;
   }
 

@@ -5,6 +5,7 @@ package saf.v3d.util;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
+import java.nio.Buffer;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -53,7 +54,7 @@ public class Utils3D {
    * @param buf
    */
   public static void matrixToBuff(Matrix4f matrix, FloatBuffer buf) {
-    buf.rewind();
+	((Buffer)buf).rewind();
     buf.put(matrix.m00);
     buf.put(matrix.m10);
     buf.put(matrix.m20);
@@ -70,7 +71,7 @@ public class Utils3D {
     buf.put(matrix.m13);
     buf.put(matrix.m23);
     buf.put(matrix.m33);
-    buf.rewind();
+    ((Buffer)buf).rewind();
   }
   
   /**
@@ -214,7 +215,7 @@ public class Utils3D {
    */
   public static BoundingSphere createBoundingSphere(FloatBuffer buf) {
     // compute minimal and maximal bounds 
-    buf.rewind();
+	((Buffer)buf).rewind();
     float[] vertex = new float[3];
     buf.get(vertex);
     Point3f min = new Point3f(vertex);
@@ -242,7 +243,7 @@ public class Utils3D {
     center.scale(.5f);
     
     // compute radius
-    buf.rewind();
+    ((Buffer)buf).rewind();
     buf.get(vertex);
     Point3f pt = new Point3f(vertex);
     float maxDist = center.distanceSquared(pt);
@@ -255,7 +256,7 @@ public class Utils3D {
       }
     }
     
-    buf.rewind();
+    ((Buffer)buf).rewind();
     return new BoundingSphere(center, (float)Math.sqrt(maxDist));
   }
 

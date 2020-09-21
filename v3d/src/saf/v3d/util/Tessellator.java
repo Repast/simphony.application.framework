@@ -5,21 +5,22 @@ package saf.v3d.util;
 
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jogamp.vecmath.Point3d;
+import org.jogamp.vecmath.Point3f;
+
+import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.glu.GLUtessellator;
 import com.jogamp.opengl.glu.GLUtessellatorCallbackAdapter;
-import org.jogamp.vecmath.Point3d;
-import org.jogamp.vecmath.Point3f;
 
 import saf.v3d.render.DisplayListRenderer;
 import saf.v3d.render.PolygonRenderer;
 import saf.v3d.render.RenderData;
-
-import com.jogamp.common.nio.Buffers;
 
 /**
  * Adapts the output of GLU tesselation to a VSpatial.
@@ -187,7 +188,7 @@ public class Tessellator {
     for (Float f : callback.vertices) {
       buf.put(f.floatValue());
     }
-    buf.rewind();
+    ((Buffer)buf).rewind();
    
     RenderData data = new RenderData(buf);
     for (SliceData slice : callback.slices) {

@@ -3,6 +3,7 @@
  */
 package saf.v3d.render;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 
 import org.jogamp.vecmath.Point3f;
@@ -31,7 +32,7 @@ public class TriangleTriangleIterator implements TriangleIterator {
    */
   @Override
   public boolean hasNext() {
-    return index < vertices.limit();
+    return index < ((Buffer)vertices).limit();
   }
 
   /* (non-Javadoc)
@@ -39,7 +40,7 @@ public class TriangleTriangleIterator implements TriangleIterator {
    */
   @Override
   public void next(Point3f p0, Point3f p1, Point3f p2) {
-    vertices.position(index);
+	((Buffer)vertices).position(index);
     p0.x = vertices.get();
     p0.y = vertices.get();
     p0.z = vertices.get();

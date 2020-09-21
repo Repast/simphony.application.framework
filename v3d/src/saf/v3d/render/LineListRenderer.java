@@ -3,6 +3,7 @@
  */
 package saf.v3d.render;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 
 import com.jogamp.opengl.GL;
@@ -34,17 +35,17 @@ public class LineListRenderer implements Renderer {
   public LineListRenderer(FloatBuffer vertices, int[] moveTo) {
     this.vertices = vertices;
     this.moveTo = moveTo;
-    this.vertices.rewind();
+    ((Buffer)this.vertices).rewind();
   }
   
   // initialize the display list
   private void init(GL2 gl) {
     listIndex = gl.glGenLists(1);
-    vertices.rewind();
+    ((Buffer)vertices).rewind();
     gl.glNewList(listIndex, GL2.GL_COMPILE);
     for (int i = 0; i < moveTo.length; i++) {
       int startIndex = moveTo[i];
-      int endIndex = i + 1 == moveTo.length ? vertices.limit()  : moveTo[i + 1];
+      int endIndex = i + 1 == moveTo.length ? ((Buffer)vertices).limit()  : moveTo[i + 1];
       gl.glBegin(GL.GL_LINE_STRIP);
       for (int j = startIndex; j < endIndex; j += 3) {
         gl.glVertex3f(vertices.get(j), vertices.get(j + 1), vertices.get(j + 2));
@@ -58,7 +59,7 @@ public class LineListRenderer implements Renderer {
   public boolean intersects(Point3f pt) {
     for (int i = 0; i < moveTo.length; i++) {
       int startIndex = moveTo[i];
-      int endIndex = i + 1 == moveTo.length ? vertices.limit()  : moveTo[i + 1];
+      int endIndex = i + 1 == moveTo.length ? ((Buffer)vertices).limit()  : moveTo[i + 1];
       
       Point3f start = new Point3f(vertices.get(startIndex), vertices.get(startIndex + 1), vertices.get(startIndex + 2));
       Point3f end = new Point3f();

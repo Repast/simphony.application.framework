@@ -3,6 +3,7 @@
  */
 package saf.v3d.scene;
 
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,7 +117,7 @@ public class VEdgeLayer extends VLayer {
        
         gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, vboIndex);
         ByteBuffer buf = gl.glMapBuffer(GL2.GL_ARRAY_BUFFER, GL2.GL_WRITE_ONLY);
-        buf.position(0);
+        ((Buffer)buf).position(0);
         
         //System.out.printf("children: %d%n", children.size());
        

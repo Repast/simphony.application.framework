@@ -3,19 +3,20 @@
  */
 package saf.v3d.grid;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 
-import com.jogamp.opengl.GL;
-import com.jogamp.opengl.GL2;
 import org.jogamp.vecmath.Color3f;
 import org.jogamp.vecmath.Point3f;
 import org.jogamp.vecmath.Vector3f;
 
+import com.jogamp.common.nio.Buffers;
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2;
+
 import saf.v3d.picking.BoundingSphere;
 import saf.v3d.render.RenderState;
 import saf.v3d.render.Shape;
-
-import com.jogamp.common.nio.Buffers;
 
 /**
  * @author Nick Collier
@@ -94,7 +95,7 @@ public class GridMesh implements Shape {
     }
 
     verticesIndex = vboIndices[0];
-    vertices.rewind();
+    ((Buffer)vertices).rewind();
     gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, verticesIndex);
     gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertCount * 2 * Buffers.SIZEOF_FLOAT, vertices,
         GL2.GL_STATIC_DRAW);
@@ -103,8 +104,8 @@ public class GridMesh implements Shape {
     updateColors();
     colorsIndex = vboIndices[1];
     gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, colorsIndex);
-    colorBuf.rewind();
-    gl.glBufferData(GL2.GL_ARRAY_BUFFER, colorBuf.limit() * Buffers.SIZEOF_FLOAT, colorBuf,
+    ((Buffer)colorBuf).rewind();
+    gl.glBufferData(GL2.GL_ARRAY_BUFFER, ((Buffer)colorBuf).limit() * Buffers.SIZEOF_FLOAT, colorBuf,
         GL2.GL_DYNAMIC_DRAW);
     
     invalid = false;
@@ -116,7 +117,7 @@ public class GridMesh implements Shape {
   }
   
   private void updateColors() {
-    colorBuf.rewind();
+	  ((Buffer)colorBuf).rewind();
     Color3f color = new Color3f();
     if (rowMajor) {
       for (int min = 0; min < minor; min++) {
@@ -239,8 +240,8 @@ public class GridMesh implements Shape {
     
     gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, colorsIndex);
     if (update) {
-      colorBuf.rewind();
-      gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, colorBuf.limit() * Buffers.SIZEOF_FLOAT, colorBuf);
+    	((Buffer)colorBuf).rewind();
+      gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, ((Buffer)colorBuf).limit() * Buffers.SIZEOF_FLOAT, colorBuf);
       update = false;
     }
     

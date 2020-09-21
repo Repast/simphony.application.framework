@@ -3,6 +3,7 @@
  */
 package saf.v3d.render;
 
+import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,13 +56,13 @@ public class RenderData {
    * @param gl
    */
   public void renderImmediate(GL2 gl) {
-    vertices.rewind();
+	  ((Buffer)vertices).rewind();
     sortSlices();
 
     for (int i = 0, n = slices.size(); i < n; i++) {
       Slice slice = slices.get(i);
       int startIndex = slice.start;
-      int endIndex = i + 1 == n ? vertices.limit() : slices.get(i + 1).start;
+      int endIndex = i + 1 == n ? ((Buffer)vertices).limit() : slices.get(i + 1).start;
 
       gl.glBegin(slice.mode);
       for (int j = startIndex; j < endIndex; j += 3) {
@@ -82,7 +83,7 @@ public class RenderData {
     for (int i = 0, n = slices.size(); i < n; i++) {
       Slice slice = slices.get(i);
       int startIndex = slice.start;
-      int endIndex = i + 1 == n ? vertices.limit() : slices.get(i + 1).start;
+      int endIndex = i + 1 == n ? ((Buffer)vertices).limit() : slices.get(i + 1).start;
       gl.glDrawArrays(slice.mode, startIndex / 3, (endIndex - startIndex) / 3);
     }
   }
@@ -113,16 +114,16 @@ public class RenderData {
    *         renderer renders.
    */
   public TriangleIterator triangleIterator() {
-    vertices.rewind();
+	((Buffer)vertices).rewind();
     sortSlices();
     List<TriangleIterator> iterators = new ArrayList<TriangleIterator>();
     for (int i = 0, n = slices.size(); i < n; i++) {
       Slice slice = slices.get(i);
       int startIndex = slice.start;
-      int endIndex = i + 1 == n ? vertices.limit() : slices.get(i + 1).start;
+      int endIndex = i + 1 == n ? ((Buffer)vertices).limit() : slices.get(i + 1).start;
       int mode = slice.mode;
       float[] buf = new float[endIndex - startIndex];
-      vertices.position(startIndex);
+      ((Buffer)vertices).position(startIndex);
       vertices.get(buf, 0, buf.length);
       if (mode == GL2.GL_TRIANGLE_STRIP) {
         iterators.add(new TriangleStripIterator(FloatBuffer.wrap(buf)));

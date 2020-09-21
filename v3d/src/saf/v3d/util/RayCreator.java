@@ -1,5 +1,6 @@
 package saf.v3d.util;
 
+import java.nio.Buffer;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 
@@ -56,7 +57,7 @@ public class RayCreator {
     mvMatrix.put(identity, 0, identity.length);
     mvMatrix.put(12, -width / 2);
     mvMatrix.put(13, -height / 2);
-    mvMatrix.rewind();
+    ((Buffer)mvMatrix).rewind();
     
     // need opengl y where 0 is the top, 
     int ogY = height - y - 1;

@@ -1,7 +1,12 @@
 package simphony.util.messages;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -20,7 +25,28 @@ public class Log4jMessageListener implements MessageEventListener {
 	
 	static {
 		if (new File(CONFIG_FILE_NAME).exists()) {
-			PropertyConfigurator.configure(CONFIG_FILE_NAME);
+		    Properties orig = new Properties();
+            File in = new File(CONFIG_FILE_NAME);
+            try {
+                orig.load(new FileInputStream(in));
+                Properties props = new Properties(orig);
+                // replace any references to MessageCenterLayout with PatternLayout as
+                // MessageCenterLayout is incompatible with log4j-2
+                for (Entry<Object, Object> entry : orig.entrySet()) {
+                    if (entry.getValue().toString().trim().equals("simphony.util.messages.MessageCenterLayout")) {
+                        // System.out.println("Replacing: " + entry.getKey());
+                        props.put(entry.getKey(), "org.apache.log4j.PatternLayout");
+                    }
+                }
+                PropertyConfigurator.configure(props);
+            } catch (FileNotFoundException e) {
+                System.err.println("Error while reading properties file: ");
+                e.printStackTrace();
+            } catch (IOException e) {
+                System.err.println("Error while reading properties file: ");
+                e.printStackTrace();
+            }
+			
 		}/* else {
 			loadDefaultSettings();
 		}*/

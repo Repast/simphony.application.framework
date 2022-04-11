@@ -1,8 +1,14 @@
 /*CopyrightHere*/
 package simphony.util.messages;
 
+import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
+import org.apache.log4j.PropertyConfigurator;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -178,5 +184,21 @@ public class MessageCenter {
 	 */
 	public void setLogListener(Log4jMessageListener logListener) {
 		this.logListener = logListener;
+	}
+	
+	public static Properties updateProperties(String path) throws IOException {
+	    BufferedReader reader = Files.newBufferedReader(Paths.get(path));
+        Properties orig = new Properties();
+        orig.load(reader);
+        Properties props = new Properties(orig);
+        // replace any references to MessageCenterLayout with PatternLayout as
+        // MessageCenterLayout is incompatible with log4j-2
+        for (Map.Entry<Object, Object> entry : orig.entrySet()) {
+            if (entry.getValue().toString().trim().equals("simphony.util.messages.MessageCenterLayout")) {
+                // System.out.println("Replacing: " + entry.getKey());
+                props.put(entry.getKey(), "org.apache.log4j.PatternLayout");
+            }
+        }
+        return props;
 	}
 }

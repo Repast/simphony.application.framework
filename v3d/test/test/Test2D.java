@@ -68,6 +68,7 @@ public class Test2D {
     frame.add(canvas.getPanel(), BorderLayout.CENTER);
     
     JPanel buttonPanel = new JPanel();
+    canvas.setDefaultExtent(500, 500);
     
     JButton button = new JButton("run");
     button.addActionListener(new ActionListener() {

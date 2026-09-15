@@ -64,6 +64,7 @@ public class Canvas2D implements GLEventListener, Canvas {
 	private MouseWheelSZoom wheelZoomer;
 	private MouseKeyZoom keyZoomer;
 	private PickSupport2D picker;
+	private float[] scale = new float[2];
 
 	private List<CanvasListener> listeners = new ArrayList<CanvasListener>();
 	// private Box worldSizeAtZero;
@@ -86,8 +87,8 @@ public class Canvas2D implements GLEventListener, Canvas {
 		caps.setSampleBuffers(true);
 		caps.setNumSamples(4);
 		drawable = new GLJPanel(caps);
-		((GLJPanel) drawable).setSurfaceScale(
-				new float[] { ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE });
+		//((GLJPanel) drawable).setSurfaceScale(
+		//		new float[] { ScalableSurface.IDENTITY_PIXELSCALE, ScalableSurface.IDENTITY_PIXELSCALE });
 //    if (Platform.getOSType().equals(OSType.MACOS) ||
 //	Platform.getOSType().equals(OSType.LINUX)) {
 //      drawable = new GLJPanel(caps);
@@ -326,7 +327,7 @@ public class Canvas2D implements GLEventListener, Canvas {
 		float diameter = sphere.getRadius() * 2;
 		// scale the diameter so it fits in the smaller of width and height;
 		float min = Math.min(width, height);
-		float scale = 1;
+		float scale = 0.6f;
 		if (diameter > min) {
 			scale = diameter / min;
 		}
@@ -338,20 +339,23 @@ public class Canvas2D implements GLEventListener, Canvas {
 	// how the scale is actually used to create an
 	// orthogonal projection that encompasses a larger area.
 	private float calculateScaleFromExtents() {
-		float scale = 1.1f;
+		// float scale = 1.0f;
+		float scale = extentWidth / width;
+		scale = Math.min(scale, extentHeight / height);
+		
 
-		if (extentWidth > width || extentHeight > height) {
-			if (extentWidth > width) {
-				scale = extentWidth / width;
-			}
-
-			if (extentHeight > height) {
-				scale = Math.max(scale, extentHeight / height);
-			}
+		// if (extentWidth > width || extentHeight > height) {
+//			if (extentWidth > width) {
+//				scale = extentWidth / width;
+//			}
+//
+//			if (extentHeight > height) {
+//				scale = Math.max(scale, extentHeight / height);
+//			}
 
 			// bit extra to create some borders
-			scale += .1f;
-		}
+		scale += .02f;
+		//}
 		
 		return scale;
 	}
@@ -372,6 +376,8 @@ public class Canvas2D implements GLEventListener, Canvas {
 			scale = calculateScaleFromSphere();
 		}
 
+		// System.out.println("Width: %d, Height: %d, extentWidth: %f, extentHeight: %f".formatted(width, height, extentWidth, extentHeight));
+		// System.out.println("Scale: " + scale);
 		wheelZoomer.reset(scale);
 		keyZoomer.reset(scale);
 		camera.scale(scale);
@@ -395,6 +401,16 @@ public class Canvas2D implements GLEventListener, Canvas {
 
 		gl.glEnable(GL2.GL_BLEND);
 		gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
+		
+		int surfaceWidth = drawable.getSurfaceWidth();
+	    int surfaceHeight = drawable.getSurfaceHeight();
+	    
+	    gl.glViewport(0, 0, surfaceWidth, surfaceHeight);
+	    
+	    int[] scaled = drawable.getNativeSurface().convertToPixelUnits(new int[] {(int)extentWidth, (int)extentHeight});
+	    extentWidth = scaled[0];
+	    extentHeight = scaled[1];
+
 
 		// System.out.println("worldSizeAtZero = " + worldSizeAtZero);
 
@@ -403,14 +419,15 @@ public class Canvas2D implements GLEventListener, Canvas {
 		}
 
 		boolean reshape = this.width == 0;
-		this.width = width;
-		this.height = height;
+		this.width = surfaceWidth;
+		this.height = surfaceHeight;
 		if (reshape || disposed) {
 			resetCamera();
 			centerScene();
 			disposed = false;
 		}
 	}
+
 
 	/**
 	 * Sets the background color of this canvas.

@@ -14,5 +14,4 @@ public interface Canvas {
    * Updates the canvas display.
    */
   void update();
-
 }

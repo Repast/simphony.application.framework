@@ -1,5 +1,6 @@
 package saf.v3d.picking;
 
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,6 +15,11 @@ public abstract class AbstractPickSupport extends MouseAdapter {
   protected boolean mousePressed = false;
   protected int x;
   protected int y;
+  // logical (DPI-unscaled) size of the component the mouse coordinates are
+  // relative to, captured at click time so the pick can be converted into
+  // render-surface pixels.
+  protected int componentWidth;
+  protected int componentHeight;
   private int modifiers;
   
   private List<PickListener> listeners = new ArrayList<PickListener>();
@@ -34,6 +40,9 @@ public abstract class AbstractPickSupport extends MouseAdapter {
       mousePressed = true;
       x = e.getX();
       y = e.getY();
+      Component source = e.getComponent();
+      componentWidth = source.getWidth();
+      componentHeight = source.getHeight();
       modifiers = e.getModifiersEx();
       canvas.update();
     }
